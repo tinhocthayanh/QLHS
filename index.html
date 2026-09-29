@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý điểm học sinh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="toastContainer" class="toast-container"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon">🏫</div>
+      <div>
+        <h1>QUẢN LÝ ĐIỂM HỌC SINH</h1>
+        <p>Cộng điểm · Trừ điểm · Đổi điểm lấy quà</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button id="refreshBtn" class="btn btn-light">🔄 Cập nhật danh sách</button>
+      <button id="backupBtn" class="btn btn-primary">💾 Sao lưu dữ liệu</button>
+      <button id="restoreBtn" class="btn btn-light">📂 Khôi phục</button>
+      <input id="restoreInput" type="file" accept=".json,application/json" hidden>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="source-card">
+      <div class="section-title">
+        <div>
+          <span class="eyebrow">NGUỒN DỮ LIỆU</span>
+          <h2>🔗 Kết nối Google Sheets</h2>
+        </div>
+        <span id="connectionStatus" class="status-pill offline">Chưa kết nối</span>
+      </div>
+      <div class="source-row">
+        <input id="sheetApiUrl" type="url" placeholder="Dán URL Google Apps Script Web App vào đây...">
+        <button id="connectBtn" class="btn btn-primary">🔗 Kết nối</button>
+      </div>
+      <p class="hint">Khuyến nghị dùng Google Apps Script Web App để đọc danh sách học sinh an toàn với CORS. Danh sách gốc trên Google Sheets không bị thay đổi.</p>
+    </section>
+
+    <section class="filter-card">
+      <div class="section-title">
+        <div>
+          <span class="eyebrow">BỘ LỌC</span>
+          <h2>🎯 Chọn phạm vi quản lý</h2>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>🏫 TRƯỜNG</label>
+        <div id="schoolFilter" class="chip-list"></div>
+      </div>
+
+      <div class="filter-group">
+        <label>📚 LỚP</label>
+        <div id="classFilter" class="chip-list"></div>
+      </div>
+
+      <div class="filter-group">
+        <label>🔤 TÊN <span>(chữ cái đầu của tên gọi)</span></label>
+        <div id="letterFilter" class="chip-list"></div>
+      </div>
+    </section>
+
+    <section class="overview">
+      <div class="overview-title">
+        <div>
+          <span class="eyebrow">DANH SÁCH</span>
+          <h2>👨‍🎓 Học sinh</h2>
+        </div>
+        <span id="studentCount" class="count-badge">0 học sinh</span>
+      </div>
+      <div id="emptyState" class="empty-state">
+        <div>👋</div>
+        <h3>Chưa có dữ liệu học sinh</h3>
+        <p>Kết nối Google Sheets hoặc dùng dữ liệu mẫu để bắt đầu.</p>
+        <button id="demoBtn" class="btn btn-secondary">✨ Dùng dữ liệu mẫu</button>
+      </div>
+      <div id="studentGrid" class="student-grid"></div>
+    </section>
+  </main>
+
+  <div id="minusModal" class="modal-backdrop hidden">
+    <div class="modal">
+      <button class="modal-close" data-close="minusModal">×</button>
+      <div class="modal-icon red">⚠️</div>
+      <h3>Trừ điểm học sinh</h3>
+      <p id="minusStudentName" class="modal-subtitle"></p>
+      <div class="form-row">
+        <label>Mức điểm trừ</label>
+        <div id="minusValueList" class="choice-grid">
+          <button class="choice-btn" data-minus="-1">-1</button>
+          <button class="choice-btn" data-minus="-2">-2</button>
+          <button class="choice-btn" data-minus="-3">-3</button>
+          <button class="choice-btn" data-minus="-5">-5</button>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Lý do <span class="required">*</span></label>
+        <div id="reasonList" class="reason-list"></div>
+        <input id="customReason" class="text-input hidden" maxlength="200" placeholder="Nhập lý do cụ thể...">
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-light" data-close="minusModal">Hủy</button>
+        <button id="saveMinusBtn" class="btn btn-danger" disabled>⚠️ Xác nhận trừ</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="historyModal" class="modal-backdrop hidden">
+    <div class="modal modal-large">
+      <button class="modal-close" data-close="historyModal">×</button>
+      <div class="modal-icon blue">📜</div>
+      <h3 id="historyTitle">Lịch sử học sinh</h3>
+      <div id="historyContent"></div>
+    </div>
+  </div>
+
+  <div id="rewardModal" class="modal-backdrop hidden">
+    <div class="modal">
+      <button class="modal-close" data-close="rewardModal">×</button>
+      <div class="modal-icon gold">🎁</div>
+      <h3>Đổi điểm nhận quà</h3>
+      <p id="rewardStudentName" class="modal-subtitle"></p>
+      <div class="reward-balance">⭐ Điểm có thể đổi: <strong id="rewardBalance">0</strong></div>
+      <div id="rewardList" class="reward-list"></div>
+      <div class="quantity-row">
+        <button id="qtyMinus" class="qty-btn">−</button>
+        <strong id="rewardQty">1</strong>
+        <button id="qtyPlus" class="qty-btn">+</button>
+      </div>
+      <p id="rewardCalculation" class="reward-calculation"></p>
+      <div class="modal-actions">
+        <button class="btn btn-light" data-close="rewardModal">Hủy</button>
+        <button id="confirmRewardBtn" class="btn btn-reward">🎁 Xác nhận đổi</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="rewardConfigModal" class="modal-backdrop hidden">
+    <div class="modal modal-large">
+      <button class="modal-close" data-close="rewardConfigModal">×</button>
+      <div class="modal-icon gold">⚙️</div>
+      <h3>Cấu hình phần quà</h3>
+      <p class="modal-subtitle">Thay đổi tên, biểu tượng và số sao cần dùng. Cấu hình được lưu trên trình duyệt này.</p>
+      <div id="rewardConfigList"></div>
+      <button id="addRewardBtn" class="btn btn-secondary">＋ Thêm phần quà</button>
+      <div class="modal-actions">
+        <button class="btn btn-light" data-close="rewardConfigModal">Hủy</button>
+        <button id="saveRewardConfigBtn" class="btn btn-primary">💾 Lưu cấu hình</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>Quản lý điểm học sinh · Lưu cục bộ bằng LocalStorage</span>
+    <button id="configRewardBtn" class="text-btn">⚙️ Cấu hình quà</button>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
