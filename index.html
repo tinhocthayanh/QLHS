@@ -1,168 +1,1748 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quản lý điểm học sinh</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>🏆 Class Star</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f4fb;--sur:#fff;--sur2:#f7f8fd;--pri:#6c5ce7;--pri2:#a29bfe;--psoft:#efeaff;--gold:#fdcb6e;--gold2:#f6a623;--green:#00b894;--gsoft:#dcfff5;--red:#ff6b6b;--rsoft:#ffe3e3;--tx:#1f2233;--mut:#6b7280;--line:#e5e7f0;--sh:0 10px 30px rgba(58,47,122,.10);--r:18px;--rl:26px;--t:.22s cubic-bezier(.2,.7,.3,1)}
+*{box-sizing:border-box}html,body{margin:0;padding:0;min-height:100%}
+body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(160deg,var(--bg),#e9ebf8);color:var(--tx);font-size:15px;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input{font-family:inherit}
+.hidden{display:none!important}
+.mobile-only{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;border-radius:12px;font-weight:600;font-size:14px;transition:var(--t);min-height:44px}
+.btn:hover{transform:translateY(-1px)}.btn:active{transform:scale(.98)}
+.btn-primary{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;box-shadow:0 6px 18px rgba(108,92,231,.35)}
+.btn-ghost{background:var(--sur2);border:1px solid var(--line)}
+.btn-danger{background:var(--red);color:#fff}
+.btn-block{width:100%}.btn-lg{padding:14px 22px;font-size:16px}
+.icon-btn{width:44px;height:44px;border-radius:12px;background:var(--sur);border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 6px rgba(58,47,122,.06)}
+.icon-btn:hover{background:var(--psoft)}
+
+/* Login */
+.login-view{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden}
+.login-bg{position:absolute;inset:0;background:radial-gradient(circle at 15% 20%,rgba(162,155,254,.55),transparent 45%),radial-gradient(circle at 85% 80%,rgba(253,203,110,.45),transparent 40%),radial-gradient(circle at 60% 40%,rgba(255,118,117,.35),transparent 50%);animation:bg 20s ease-in-out infinite alternate}
+@keyframes bg{to{transform:scale(1.15) rotate(6deg)}}
+.login-card{position:relative;z-index:1;width:100%;max-width:420px;background:rgba(255,255,255,.85);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.6);border-radius:var(--rl);padding:40px 32px;box-shadow:0 20px 50px rgba(58,47,122,.18);text-align:center;animation:pop .5s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes pop{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+.logo-big{font-size:68px;line-height:1;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.logo-text{margin:12px 0 4px;font-size:28px;font-weight:900;letter-spacing:1px;background:linear-gradient(135deg,var(--pri),var(--pri2),var(--gold2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.login-sub{color:var(--mut);font-size:14px;margin:0 0 26px}
+.login-label{display:block;text-align:left;margin-bottom:14px}
+.login-label span{display:block;font-size:13px;font-weight:600;color:var(--mut);margin-bottom:6px}
+.login-label input{width:100%;padding:13px 16px;border-radius:12px;border:2px solid var(--line);background:#fff;font-size:15px}
+.login-label input:focus{outline:none;border-color:var(--pri);box-shadow:0 0 0 4px var(--psoft)}
+.login-error{color:var(--red);font-size:13px;min-height:18px;margin-top:8px;font-weight:600}
+.login-hint{font-size:13px;color:var(--mut);margin:18px 0 6px}
+.login-hint code{background:var(--psoft);color:var(--pri);padding:2px 8px;border-radius:6px;font-weight:700}
+.login-kicker{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid rgba(108,92,231,.14);border-radius:999px;background:rgba(239,234,255,.8);color:var(--pri);font-size:11px;font-weight:800;letter-spacing:.7px}
+.login-kicker span{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(0,184,148,.12)}
+.logo-big{display:grid;place-items:center;width:88px;height:88px;margin:20px auto 14px;border-radius:28px;background:linear-gradient(145deg,#f0edff,#fff7e0);box-shadow:inset 0 0 0 1px rgba(108,92,231,.08),0 12px 28px rgba(58,47,122,.1);font-size:48px}
+.logo-text{margin-top:0}
+.login-sub{line-height:1.65}
+.login-label input{padding-right:58px}
+.login-input-wrap{position:relative}
+.login-input-wrap input{padding-right:58px}
+.login-toggle{position:absolute;right:7px;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:10px;color:var(--mut);font-size:17px;transition:var(--t)}
+.login-toggle:hover,.login-toggle:focus-visible{background:var(--psoft);color:var(--pri);outline:none}
+.login-hint{padding-top:14px;border-top:1px solid var(--line);line-height:1.8}
+.login-footer{margin:14px 0 0;color:var(--mut);font-size:11px;letter-spacing:.15px}
+.login-footer span{color:var(--green);margin-right:5px}
+button:focus-visible{outline:3px solid rgba(108,92,231,.38);outline-offset:3px}
+.student-card,.stat-card,.school-group,.settings-section,.rank-row,.reward-card{transition:transform var(--t),box-shadow var(--t),border-color var(--t)}
+.student-card:hover,.stat-card:hover,.reward-card:hover{transform:translateY(-3px);box-shadow:var(--sh);border-color:var(--pri2)}
+@media(max-width:480px){.login-card{padding:32px 22px;border-radius:22px}.login-view{padding:16px}.logo-big{width:76px;height:76px;font-size:42px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+/* App */
+.app-view{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+.sidebar{background:var(--sur);border-right:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh;z-index:40}
+.sidebar-brand{display:flex;align-items:center;gap:10px;padding:8px 10px 22px}
+.brand-icon{font-size:26px}
+.brand-name{font-weight:800;font-size:17px;background:linear-gradient(135deg,var(--pri),var(--gold2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.nav{display:flex;flex-direction:column;gap:4px;flex:1}
+.nav-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;font-weight:600;color:var(--mut);transition:var(--t);text-align:left}
+.nav-item span:first-child{font-size:18px;width:22px;display:inline-block;text-align:center}
+.nav-item:hover{background:var(--sur2);color:var(--tx)}
+.nav-item.active{background:linear-gradient(135deg,var(--psoft),#f9f5ff);color:var(--pri);box-shadow:inset 0 0 0 1px rgba(108,92,231,.15)}
+.pres-entry{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#5a3d00;box-shadow:var(--sh)}
+.main{display:flex;flex-direction:column;min-width:0}
+.topbar{display:flex;align-items:center;gap:14px;padding:14px 24px;background:rgba(255,255,255,.75);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.topbar-ctx{flex:1;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-weight:600;min-width:0}
+.topbar-stats{display:flex;gap:14px;align-items:center;font-weight:700;color:var(--mut);font-size:14px}
+.topbar-stats .pill{padding:6px 12px;border-radius:999px;background:var(--sur2);border:1px solid var(--line)}
+.topbar-stats .pill.gold{color:var(--gold2);background:#fff7e0;border-color:#fce7bd}
+.views{padding:24px;flex:1}
+.view{animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.page-title{font-size:24px;font-weight:800;margin:0 0 6px}
+.page-sub{color:var(--mut);margin:0 0 24px}
+.section-title{font-size:15px;font-weight:800;margin:26px 0 12px}
+.school-group{background:var(--sur);border-radius:var(--r);padding:16px;box-shadow:0 2px 6px rgba(58,47,122,.06);margin-bottom:14px;border:1px solid var(--line)}
+.school-head{font-weight:700;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:9px 14px;border-radius:999px;background:var(--sur2);border:1px solid var(--line);font-weight:600;font-size:13px;transition:var(--t);min-height:38px;display:inline-flex;align-items:center;gap:6px;color:var(--tx)}
+.chip:hover{background:var(--psoft);color:var(--pri);transform:translateY(-2px)}
+.chip.active{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;border-color:transparent;box-shadow:0 6px 14px rgba(108,92,231,.3)}
+.chip .count{font-size:11px;opacity:.75;background:rgba(0,0,0,.06);padding:1px 7px;border-radius:999px}
+.chip.active .count{background:rgba(255,255,255,.25)}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+.stat-card{background:var(--sur);border-radius:var(--r);padding:18px;box-shadow:0 2px 6px rgba(58,47,122,.06);border:1px solid var(--line)}
+.stat-icon{font-size:26px}.stat-value{font-size:26px;font-weight:900}.stat-label{font-size:12px;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.student-card{position:relative;background:var(--sur);border-radius:var(--rl);padding:18px 14px 14px;text-align:center;box-shadow:0 2px 6px rgba(58,47,122,.06);border:1px solid var(--line);transition:var(--t)}
+.student-card:hover{transform:translateY(-3px);box-shadow:var(--sh);border-color:var(--pri2)}
+.avatar-wrap{position:relative;display:inline-block;margin-bottom:8px}
+.avatar-img{width:76px;height:76px;border-radius:50%;border:3px solid #fff;box-shadow:0 6px 18px rgba(58,47,122,.18);display:block}
+.avatar-edit{position:absolute;right:-4px;bottom:-4px;width:28px;height:28px;border-radius:50%;background:var(--pri);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(108,92,231,.4)}
+.student-name{font-weight:700;font-size:14px;margin:4px 0 2px;line-height:1.25;word-break:break-word}
+.student-sub{font-size:11px;color:var(--mut);margin-bottom:8px}
+.score-big{font-size:30px;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold2),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
+.level-tag{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;background:var(--psoft);color:var(--pri);margin-top:6px}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px}
+.actions button{padding:10px 0;border-radius:10px;font-weight:800;font-size:14px;background:var(--gsoft);color:var(--green);transition:var(--t);min-height:44px}
+.actions button:hover{background:var(--green);color:#fff}
+.actions button.minus{background:var(--rsoft);color:var(--red)}
+.actions button.minus:hover{background:var(--red);color:#fff}
+.filter-bar{background:var(--sur);border-radius:var(--r);padding:16px;box-shadow:0 2px 6px rgba(58,47,122,.06);border:1px solid var(--line);margin-bottom:16px}
+.filter-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.filter-row:last-child{margin-bottom:0}
+.filter-row .label{font-size:12px;font-weight:800;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;min-width:68px}
+.alpha-row{display:flex;flex-wrap:wrap;gap:6px}
+.alpha-btn{width:40px;height:40px;border-radius:10px;font-weight:800;font-size:14px;background:var(--sur2);border:1px solid var(--line);transition:var(--t)}
+.alpha-btn:hover:not(:disabled){background:var(--psoft);color:var(--pri);transform:translateY(-2px)}
+.alpha-btn.active{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;border-color:transparent}
+.alpha-btn:disabled{opacity:.25;pointer-events:none}
+.empty{text-align:center;padding:60px 20px;color:var(--mut)}
+.empty-icon{font-size:56px;margin-bottom:12px;display:block;opacity:.6}
+.toast-root{position:fixed;top:18px;right:18px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{background:var(--sur);padding:12px 16px;border-radius:12px;box-shadow:0 20px 50px rgba(58,47,122,.18);border-left:4px solid var(--pri);font-weight:600;font-size:14px;animation:slideIn .3s;pointer-events:auto;max-width:320px}
+.toast.success{border-color:var(--green)}.toast.error{border-color:var(--red)}.toast.warn{border-color:var(--gold2)}
+@keyframes slideIn{from{transform:translateX(20px);opacity:0}to{transform:none;opacity:1}}
+.modal-backdrop{position:fixed;inset:0;background:rgba(20,16,50,.55);backdrop-filter:blur(4px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn .2s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:var(--sur);border-radius:var(--rl);padding:24px;width:100%;max-width:520px;max-height:90vh;overflow:auto;box-shadow:0 20px 50px rgba(58,47,122,.18)}
+.modal h3{margin:0 0 6px;font-size:20px;font-weight:800}
+.modal-sub{color:var(--mut);font-size:13px;margin:0 0 18px}
+.reason-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.reason-btn{padding:14px;border-radius:12px;background:var(--sur2);border:2px solid var(--line);text-align:left;transition:var(--t);min-height:60px}
+.reason-btn:hover{background:var(--rsoft);border-color:var(--red);transform:translateY(-2px)}
+.reason-btn strong{display:block;font-size:14px}.reason-btn small{color:var(--red);font-weight:800}
+.reason-custom input{width:100%;padding:12px;border-radius:10px;border:2px solid var(--line);margin-top:12px}
+.fx-root{position:fixed;inset:0;pointer-events:none;z-index:9000;overflow:hidden}
+.fx-star{position:absolute;font-size:22px;animation:sf .9s ease-out forwards}
+@keyframes sf{from{transform:translate(0,0) scale(.6);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(1.3);opacity:0}}
+.fx-confetti{position:absolute;width:10px;height:14px;border-radius:3px;animation:cf var(--dur) linear forwards}
+@keyframes cf{from{transform:translateY(-20px) rotate(0);opacity:1}to{transform:translateY(100vh) rotate(720deg);opacity:0}}
+.levelup-banner{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.7);padding:26px 42px;border-radius:22px;font-size:34px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#5a3d00;box-shadow:0 20px 60px rgba(246,166,35,.6);opacity:0;z-index:9200;pointer-events:none}
+.levelup-banner.show{animation:lu 1.8s ease-out forwards}
+@keyframes lu{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}85%{opacity:1}100%{opacity:0}}
+.list-card{background:var(--sur);border-radius:var(--r);padding:16px;box-shadow:0 2px 6px rgba(58,47,122,.06);border:1px solid var(--line);margin-bottom:12px}
+.history-row{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px}
+.history-row:hover{background:var(--sur2)}
+.hr-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.hr-icon.plus{background:var(--gsoft);color:var(--green)}
+.hr-icon.minus{background:var(--rsoft);color:var(--red)}
+.hr-icon.redeem{background:#fff7e0;color:var(--gold2)}
+.hr-body{flex:1;min-width:0}.hr-title{font-weight:700;font-size:14px}.hr-sub{font-size:12px;color:var(--mut)}
+.hr-points{font-weight:900;font-size:16px}
+.rank-tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.rank-list{display:flex;flex-direction:column;gap:10px}
+.rank-row{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--sur);border-radius:var(--r);box-shadow:0 2px 6px rgba(58,47,122,.06);border:1px solid var(--line);transition:var(--t);cursor:pointer}
+.rank-row:hover{transform:translateX(4px);border-color:var(--pri2)}
+.rank-pos{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;background:var(--sur2)}
+.rank-row.top1 .rank-pos{background:linear-gradient(135deg,#ffd700,#ff9500);color:#5a3d00}
+.rank-row.top2 .rank-pos{background:linear-gradient(135deg,#e0e0e0,#a8a8a8)}
+.rank-row.top3 .rank-pos{background:linear-gradient(135deg,#e8a875,#b06e3b);color:#fff}
+.rank-avatar{width:48px;height:48px;border-radius:50%;border:2px solid #fff}
+.rank-info{flex:1;min-width:0}.rank-name{font-weight:700;font-size:15px}.rank-sub{font-size:12px;color:var(--mut)}
+.rank-score{font-weight:900;font-size:20px;color:var(--gold2)}
+.reward-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.reward-card{background:var(--sur);border-radius:var(--r);padding:20px;box-shadow:0 2px 6px rgba(58,47,122,.06);border:1px solid var(--line);text-align:center}
+.reward-icon{font-size:44px}.reward-name{font-weight:800;margin:8px 0 4px;font-size:16px}
+.reward-cost{color:var(--gold2);font-weight:800;font-size:14px;margin-bottom:12px}
+.reward-status{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;display:inline-block}
+.reward-status.unlocked{background:var(--gsoft);color:var(--green)}
+.reward-status.locked{background:var(--rsoft);color:var(--red)}
+.settings-section{background:var(--sur);border-radius:var(--r);padding:20px;box-shadow:0 2px 6px rgba(58,47,122,.06);border:1px solid var(--line);margin-bottom:16px}
+.settings-section h3{margin:0 0 14px;font-size:16px;font-weight:800}
+.reward-setting-row{display:grid;grid-template-columns:minmax(60px,.55fr) minmax(140px,1.6fr) minmax(110px,.8fr) auto auto;align-items:end;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.reward-setting-field{display:block;min-width:0}
+.reward-setting-field span{display:block;margin-bottom:5px;color:var(--mut);font-size:11px;font-weight:700}
+.reward-setting-field input{width:100%;min-width:0;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--sur2);font:inherit}
+.reward-setting-field input:focus{outline:none;border-color:var(--pri);box-shadow:0 0 0 3px var(--psoft)}
+.reward-setting-enabled{display:flex;align-items:center;gap:6px;min-height:40px;white-space:nowrap;font-size:12px;font-weight:600}
+.reward-setting-enabled input{accent-color:var(--pri)}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--mut);margin-bottom:6px;text-transform:uppercase}
+.field input{width:100%;padding:10px 12px;border-radius:10px;border:2px solid var(--line);font-size:14px}
+.field input:focus{outline:none;border-color:var(--pri)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.switch{display:flex;align-items:center;justify-content:space-between;padding:12px;background:var(--sur2);border-radius:10px}
+.switch input{width:20px;height:20px;accent-color:var(--pri)}
+.avatar-picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:8px;max-height:320px;overflow-y:auto;padding:4px}
+.avatar-pick{padding:4px;border-radius:50%;border:3px solid transparent;transition:var(--t)}
+.avatar-pick:hover{transform:scale(1.08)}
+.avatar-pick.selected{border-color:var(--pri);box-shadow:0 0 0 4px var(--psoft)}
+.avatar-pick img{width:100%;display:block;border-radius:50%}
+.presentation-view{position:fixed;inset:0;z-index:8000;background:radial-gradient(circle at 20% 20%,#2d1e6d,#10083a 65%);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px}
+.pres-close{position:absolute;top:20px;right:20px;background:rgba(255,255,255,.15);color:#fff;border-radius:50%;width:52px;height:52px;font-size:22px}
+.pres-avatar{width:240px;height:240px;border-radius:50%;border:8px solid rgba(255,255,255,.15);box-shadow:0 20px 80px rgba(162,155,254,.5);margin-bottom:26px}
+.pres-name{font-size:52px;font-weight:900;margin:0 0 8px;text-align:center}
+.pres-class{color:#b8b3ff;font-size:20px;margin-bottom:26px}
+.pres-score{font-size:90px;font-weight:900;background:linear-gradient(135deg,#fdcb6e,#f6a623);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.pres-level{font-size:26px;margin-top:12px;font-weight:700;color:#a29bfe}
+.pres-ach{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.pres-ach span{padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.1);font-size:16px}
+.pres-nav{position:absolute;bottom:30px;display:flex;gap:14px}
+.pres-nav button{padding:14px 24px;border-radius:14px;background:rgba(255,255,255,.15);color:#fff;font-weight:700;font-size:16px}
+.bottom-nav{display:none}
+@media(max-width:800px){
+  .mobile-only{display:inline-flex}
+  .app-view{grid-template-columns:1fr}
+  .sidebar{position:fixed;top:0;left:0;transform:translateX(-100%);width:260px;transition:transform var(--t);box-shadow:0 20px 50px rgba(58,47,122,.18)}
+  .sidebar.open{transform:none}
+  .views{padding:16px 14px 96px}
+  .topbar-stats{display:none}
+  .student-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .student-card .avatar-img{width:60px;height:60px}
+  .bottom-nav{display:flex;justify-content:space-around;position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:50}
+  .bn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;border-radius:10px;color:var(--mut);font-size:11px;font-weight:700;min-width:56px}
+  .bn-item span{font-size:20px}
+  .bn-item.active{color:var(--pri);background:var(--psoft)}
+  .pres-name{font-size:32px}.pres-avatar{width:160px;height:160px}.pres-score{font-size:64px}
+  .reward-setting-row{grid-template-columns:64px 1fr;align-items:center}
+  .reward-setting-enabled{grid-column:1 / 2}
+  .reward-setting-row>[data-remove-reward]{grid-column:2 / 3;justify-self:end}
+}
+</style>
 </head>
 <body>
-  <div id="toastContainer" class="toast-container"></div>
 
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-icon">🏫</div>
-      <div>
-        <h1>QUẢN LÝ ĐIỂM HỌC SINH</h1>
-        <p>Cộng điểm · Trừ điểm · Đổi điểm lấy quà</p>
-      </div>
+<div id="login-view" class="login-view">
+  <div class="login-bg"></div>
+  <div class="login-card">
+    <div class="login-kicker"><span></span> QUẢN LÝ LỚP HỌC THÔNG MINH</div>
+    <div class="logo-big">🏆</div>
+    <h1 class="logo-text">CLASS STAR</h1>
+    <p class="login-sub">Khơi nguồn cảm hứng, ghi nhận từng bước tiến của học sinh.</p>
+    <form id="login-form">
+      <label class="login-label"><span>🔐 Mật khẩu</span>
+        <div class="login-input-wrap">
+          <input type="password" id="login-password" placeholder="Nhập mật khẩu..." required autofocus autocomplete="current-password">
+          <button class="login-toggle" id="login-toggle" type="button" aria-label="Hiện mật khẩu" aria-controls="login-password" aria-pressed="false">👁</button>
+        </div>
+      </label>
+      <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
+      <div id="login-error" class="login-error" aria-live="polite"></div>
+    </form>
+    <p class="login-hint">Mật khẩu truy cập: <code>1230</code></p>
+    <p class="login-footer"><span>●</span> Theo dõi thi đua và thành tích lớp học</p>
+  </div>
+</div>
+
+<div id="app-view" class="app-view hidden">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><span class="brand-icon">🏆</span><span class="brand-name">Class Star</span></div>
+    <nav class="nav">
+      <button class="nav-item" data-view="home"><span>🏠</span><span>Trang chủ</span></button>
+      <button class="nav-item" data-view="class"><span>🔎</span><span>Tìm học sinh</span></button>
+      <button class="nav-item" data-view="ranking"><span>🏆</span><span>Xếp hạng</span></button>
+      <button class="nav-item" data-view="rewards"><span>🎁</span><span>Đổi quà</span></button>
+      <button class="nav-item" data-view="history"><span>📜</span><span>Lịch sử</span></button>
+      <button class="nav-item" data-view="settings"><span>⚙️</span><span>Cài đặt</span></button>
+    </nav>
+    <button class="nav-item pres-entry" id="btn-presentation"><span>📺</span><span>Trình chiếu</span></button>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <button class="icon-btn mobile-only" id="btn-menu">☰</button>
+      <div class="topbar-ctx" id="topbar-ctx"></div>
+      <div class="topbar-stats" id="topbar-stats"></div>
+      <button class="icon-btn" id="btn-logout">🚪</button>
+    </header>
+    <div class="views">
+      <section id="view-home" class="view"></section>
+      <section id="view-class" class="view hidden"></section>
+      <section id="view-ranking" class="view hidden"></section>
+      <section id="view-rewards" class="view hidden"></section>
+      <section id="view-history" class="view hidden"></section>
+      <section id="view-settings" class="view hidden"></section>
     </div>
-    <div class="top-actions">
-      <button id="refreshBtn" class="btn btn-light">🔄 Cập nhật danh sách</button>
-      <button id="backupBtn" class="btn btn-primary">💾 Sao lưu dữ liệu</button>
-      <button id="restoreBtn" class="btn btn-light">📂 Khôi phục</button>
-      <input id="restoreInput" type="file" accept=".json,application/json" hidden>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="source-card">
-      <div class="section-title">
-        <div>
-          <span class="eyebrow">NGUỒN DỮ LIỆU</span>
-          <h2>🔗 Kết nối Google Sheets</h2>
-        </div>
-        <span id="connectionStatus" class="status-pill offline">Chưa kết nối</span>
-      </div>
-      <div class="source-row">
-        <input id="sheetApiUrl" type="url" placeholder="Dán URL Google Apps Script Web App vào đây...">
-        <button id="connectBtn" class="btn btn-primary">🔗 Kết nối</button>
-      </div>
-      <p class="hint">Khuyến nghị dùng Google Apps Script Web App để đọc danh sách học sinh an toàn với CORS. Danh sách gốc trên Google Sheets không bị thay đổi.</p>
-    </section>
-
-    <section class="filter-card">
-      <div class="section-title">
-        <div>
-          <span class="eyebrow">BỘ LỌC</span>
-          <h2>🎯 Chọn phạm vi quản lý</h2>
-        </div>
-      </div>
-
-      <div class="filter-group">
-        <label>🏫 TRƯỜNG</label>
-        <div id="schoolFilter" class="chip-list"></div>
-      </div>
-
-      <div class="filter-group">
-        <label>📚 LỚP</label>
-        <div id="classFilter" class="chip-list"></div>
-      </div>
-
-      <div class="filter-group">
-        <label>🔤 TÊN <span>(chữ cái đầu của tên gọi)</span></label>
-        <div id="letterFilter" class="chip-list"></div>
-      </div>
-    </section>
-
-    <section class="overview">
-      <div class="overview-title">
-        <div>
-          <span class="eyebrow">DANH SÁCH</span>
-          <h2>👨‍🎓 Học sinh</h2>
-        </div>
-        <span id="studentCount" class="count-badge">0 học sinh</span>
-      </div>
-      <div id="emptyState" class="empty-state">
-        <div>👋</div>
-        <h3>Chưa có dữ liệu học sinh</h3>
-        <p>Kết nối Google Sheets hoặc dùng dữ liệu mẫu để bắt đầu.</p>
-        <button id="demoBtn" class="btn btn-secondary">✨ Dùng dữ liệu mẫu</button>
-      </div>
-      <div id="studentGrid" class="student-grid"></div>
-    </section>
   </main>
+  <nav class="bottom-nav">
+    <button class="bn-item" data-view="home"><span>🏠</span><label>Nhà</label></button>
+    <button class="bn-item" data-view="class"><span>🔎</span><label>Tìm</label></button>
+    <button class="bn-item" data-view="ranking"><span>🏆</span><label>Hạng</label></button>
+    <button class="bn-item" data-view="rewards"><span>🎁</span><label>Quà</label></button>
+    <button class="bn-item" data-view="settings"><span>⚙️</span><label>Cài</label></button>
+  </nav>
+</div>
 
-  <div id="minusModal" class="modal-backdrop hidden">
-    <div class="modal">
-      <button class="modal-close" data-close="minusModal">×</button>
-      <div class="modal-icon red">⚠️</div>
-      <h3>Trừ điểm học sinh</h3>
-      <p id="minusStudentName" class="modal-subtitle"></p>
-      <div class="form-row">
-        <label>Mức điểm trừ</label>
-        <div id="minusValueList" class="choice-grid">
-          <button class="choice-btn" data-minus="-1">-1</button>
-          <button class="choice-btn" data-minus="-2">-2</button>
-          <button class="choice-btn" data-minus="-3">-3</button>
-          <button class="choice-btn" data-minus="-5">-5</button>
+<div id="presentation-view" class="presentation-view hidden"></div>
+<div id="modal-root"></div>
+<div id="toast-root" class="toast-root"></div>
+<div id="fx-root" class="fx-root"></div>
+
+<script>
+/* ============================================================
+   CLASS STAR v1.0 — Toàn bộ JS (đã hoàn chỉnh)
+   ============================================================ */
+(function(){
+'use strict';
+
+/* ---------- 1. HELPERS ---------- */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtDT = iso => { const d = new Date(iso); return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')} – ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; };
+
+function toast(msg, type='info', ms=2600){
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  $('#toast-root').appendChild(el);
+  setTimeout(() => el.remove(), ms);
+}
+function closeModal(){ $('#modal-root').innerHTML = ''; }
+function openModal(html, onMount){
+  closeModal();
+  const back = document.createElement('div');
+  back.className = 'modal-backdrop';
+  back.innerHTML = '<div class="modal">' + html + '</div>';
+  back.addEventListener('click', e => { if(e.target === back) closeModal(); });
+  $('#modal-root').appendChild(back);
+  if(onMount) onMount(back.querySelector('.modal'));
+}
+function starBurst(x, y, n=8){
+  const icons = ['⭐','✨','🌟','💫'];
+  for(let i=0;i<n;i++){
+    const el = document.createElement('div');
+    el.className = 'fx-star';
+    el.textContent = icons[i%4];
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    const a = (Math.PI*2*i)/n + Math.random()*0.5;
+    const d = 60 + Math.random()*80;
+    el.style.setProperty('--dx', Math.cos(a)*d + 'px');
+    el.style.setProperty('--dy', Math.sin(a)*d + 'px');
+    $('#fx-root').appendChild(el);
+    setTimeout(() => el.remove(), 1000);
+  }
+}
+function confetti(dur=1600){
+  const colors = ['#6c5ce7','#fdcb6e','#00b894','#ff7675','#74b9ff','#e84393'];
+  const start = Date.now();
+  const t = setInterval(() => {
+    if(Date.now()-start > dur){ clearInterval(t); return; }
+    for(let i=0;i<6;i++){
+      const el = document.createElement('div');
+      el.className = 'fx-confetti';
+      el.style.left = Math.random()*100 + 'vw';
+      el.style.background = colors[Math.floor(Math.random()*colors.length)];
+      el.style.setProperty('--dur', (1.5+Math.random()*1.2)+'s');
+      $('#fx-root').appendChild(el);
+      setTimeout(() => el.remove(), 2800);
+    }
+  }, 90);
+}
+function levelUpBanner(text){
+  const el = document.createElement('div');
+  el.className = 'levelup-banner';
+  el.textContent = text;
+  $('#fx-root').appendChild(el);
+  requestAnimationFrame(() => el.classList.add('show'));
+  setTimeout(() => el.remove(), 2000);
+}
+
+/* ---------- 2. NAME PARSER ---------- */
+const VIETNAMESE_INITIALS = ['A','Ă','Â','B','C','D','Đ','E','Ê','G','H','I','K','L','M','N','O','Ô','Ơ','P','Q','R','S','T','U','Ư','V','X','Y'];
+function parseVietnameseName(fullName){
+  const clean = String(fullName||'').trim().replace(/\s+/g,' ');
+  if(!clean) return {givenName:'',initial:'?'};
+  const parts = clean.split(' ');
+  const givenName = parts[parts.length-1];
+  let initial = givenName.charAt(0).toUpperCase();
+  if(initial === 'Đ') initial = 'Đ';
+  return {givenName, initial};
+}
+function makeStudentId(sid, cid, name, idx){
+  const slug = String(name||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]/g,'').toLowerCase().slice(0,12);
+  return (sid+'-'+cid+'-'+slug+'-'+idx).toUpperCase();
+}
+function hasSameNameInClass(student){
+  const normalizedName=String(student.name||'').trim().replace(/\s+/g,' ').toLocaleLowerCase();
+  return Services.students.some(other=>other.id!==student.id
+    &&String(other.name||'').trim().replace(/\s+/g,' ').toLocaleLowerCase()===normalizedName
+    &&other.schoolId===student.schoolId&&other.classId===student.classId);
+}
+function studentContextLabel(student,includeSchool=true){
+  const school=includeSchool&&student.schoolName?` • ${student.schoolName}`:'';
+  const id=hasSameNameInClass(student)?` • Mã ${student.id}`:'';
+  return `Lớp ${student.className}${school}${id}`;
+}
+function studentNameAndContext(student){
+  return `${esc(student.name)} <span class="count">${esc(studentContextLabel(student))}</span>`;
+}
+
+/* ---------- 3. AVATARS ---------- */
+const HAIRS=['#2b2b3a','#5a3921','#b06e3b','#f0b429','#ff6b9d','#4a90e2','#16a085','#8e44ad'];
+const BGS=['#ffeaa7','#fab1a0','#81ecec','#a29bfe','#74b9ff','#55efc4','#ffd6a5','#dfe6e9'];
+const SKINS=['#ffdcb8','#f8c291','#f0b287','#ffe3c4'];
+const SHIRTS=['#6c5ce7','#00b894','#e17055','#0984e3','#e84393','#fdcb6e'];
+const STYLES=['short','long','bun','spiky'];
+const AVATARS = Array.from({length:24}, (_,i) => ({
+  id:'avatar_'+String(i+1).padStart(2,'0'),
+  bg:BGS[i%BGS.length], hair:HAIRS[i%HAIRS.length],
+  skin:SKINS[i%SKINS.length], shirt:SHIRTS[(i*3)%SHIRTS.length],
+  style:STYLES[i%STYLES.length]
+}));
+function hairSVG(style, color){
+  if(style==='long') return `<path d="M26 56 Q24 20 60 20 Q96 20 94 56 L94 70 Q92 64 86 62 L86 40 Q86 34 60 34 Q34 34 34 40 L34 62 Q28 64 26 70 Z" fill="${color}"/>`;
+  if(style==='bun') return `<circle cx="60" cy="18" r="14" fill="${color}"/><path d="M28 54 Q28 22 60 22 Q92 22 92 54 Q92 40 60 40 Q28 40 28 54 Z" fill="${color}"/>`;
+  if(style==='spiky') return `<path d="M28 54 L32 30 L40 44 L46 24 L54 42 L60 22 L66 42 L74 24 L80 44 L88 30 L92 54 Q92 38 60 38 Q28 38 28 54 Z" fill="${color}"/>`;
+  return `<path d="M28 54 Q28 22 60 22 Q92 22 92 54 Q92 40 60 40 Q28 40 28 54 Z" fill="${color}"/>`;
+}
+function avatarDataURL(id){
+  const a = AVATARS.find(x => x.id === id) || AVATARS[0];
+  const svg = `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="58" fill="${a.bg}"/><circle cx="60" cy="60" r="52" fill="#fff" opacity=".25"/><path d="M16 120 Q18 88 60 88 Q102 88 104 120 Z" fill="${a.shirt}"/><rect x="52" y="76" width="16" height="14" rx="4" fill="${a.skin}"/><circle cx="60" cy="58" r="32" fill="${a.skin}"/>${hairSVG(a.style,a.hair)}<ellipse cx="49" cy="58" rx="3.2" ry="4.2" fill="#2b2b3a"/><ellipse cx="71" cy="58" rx="3.2" ry="4.2" fill="#2b2b3a"/><circle cx="50" cy="56.5" r="1" fill="#fff"/><circle cx="72" cy="56.5" r="1" fill="#fff"/><circle cx="42" cy="68" r="5" fill="#ff9a9a" opacity=".55"/><circle cx="78" cy="68" r="5" fill="#ff9a9a" opacity=".55"/><path d="M53 71 Q60 78 67 71" stroke="#2b2b3a" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg>`;
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+}
+
+/* ---------- 4. STORAGE ---------- */
+const Storage = {
+  prefix: 'classstar_',
+  get(k, f){
+    try{ const r = localStorage.getItem(this.prefix+k); return r==null ? f : JSON.parse(r); }
+    catch(e){ return f; }
+  },
+  set(k, v){
+    try{ localStorage.setItem(this.prefix+k, JSON.stringify(v)); return true; }
+    catch(e){ toast('Bộ nhớ đầy!', 'error'); return false; }
+  },
+  remove(k){ localStorage.removeItem(this.prefix+k); },
+  clearAll(){
+    Object.keys(localStorage).filter(k => k.startsWith(this.prefix))
+      .forEach(k => localStorage.removeItem(k));
+  }
+};
+
+/* ---------- 5. DEMO DATA ---------- */
+const SURNAMES=['Nguyễn','Trần','Lê','Phạm','Hoàng','Vũ','Đặng','Bùi','Ngô','Đỗ','Hồ','Dương','Lý'];
+const MIDDLES=['Minh','Gia','Ngọc','Văn','Thị','Khánh','Tuấn','Thu','Hoàng','Bảo','Thanh','Quốc'];
+const GIVEN_BY = {
+  A:['An','Anh','Ánh'], B:['Bảo','Bình','Bích'], C:['Chi','Châu','Cường'],
+  D:['Dũng','Duy','Diệp'], Đ:['Đạt','Đông','Đức'], H:['Hà','Hân','Hùng','Hoa'],
+  K:['Kiệt','Khánh','Kim'], L:['Lan','Linh','Long'], M:['Minh','My','Mạnh'],
+  N:['Nam','Nhi','Ngân'], P:['Phong','Phương','Phúc'], Q:['Quân','Quỳnh','Quang'],
+  S:['Sơn','Sang'], T:['Tâm','Trang','Tuấn','Thảo'], U:['Uyên'], V:['Vy','Vinh'],
+  X:['Xuân'], Y:['Yến']
+};
+const CLASS_INITIALS = {
+  '4A1':['A','B','C','Đ','H','K','L','M','N','P','Q','T','V'],
+  '4A2':['A','B','D','H','L','M','T','V'],
+  '5A1':['A','C','Đ','H','K','M','N','T','U','Y'],
+  '3A1':['A','B','Đ','H','L','M','Q','T'],
+  '4B1':['A','C','D','H','K','L','N','P','T','V'],
+  '5B2':['B','Đ','H','M','N','Q','T','X']
+};
+function nameWithInitial(letter, seed){
+  const arr = GIVEN_BY[letter]; if(!arr) return null;
+  return SURNAMES[seed%SURNAMES.length] + ' ' + MIDDLES[(seed*3)%MIDDLES.length] + ' ' + arr[seed%arr.length];
+}
+function generateDemoData(){
+  const schools = [
+    {id:'S001', name:'Trường Tiểu học Hoa Sen'},
+    {id:'S002', name:'Trường Tiểu học Ánh Dương'}
+  ];
+  const classes = [
+    {id:'4A1',name:'4A1',schoolId:'S001'},{id:'4A2',name:'4A2',schoolId:'S001'},{id:'5A1',name:'5A1',schoolId:'S001'},
+    {id:'3A1',name:'3A1',schoolId:'S002'},{id:'4B1',name:'4B1',schoolId:'S002'},{id:'5B2',name:'5B2',schoolId:'S002'}
+  ];
+  const students = []; let counter = 0;
+  for(const cls of classes){
+    const school = schools.find(s => s.id === cls.schoolId);
+    const initials = CLASS_INITIALS[cls.id] || ['A','B','C','H','M'];
+    const target = 12 + (cls.id.charCodeAt(0) % 5);
+    for(let i=0, letterIdx=0; i<target; ){
+      const letter = initials[letterIdx % initials.length];
+      const name = nameWithInitial(letter, counter);
+      if(!name){ counter++; letterIdx++; continue; }
+      const {givenName, initial} = parseVietnameseName(name);
+      students.push({
+        id: makeStudentId(cls.schoolId, cls.id, name, i),
+        name, schoolId: cls.schoolId, schoolName: school.name,
+        classId: cls.id, className: cls.name, givenName, initial
+      });
+      counter++; i++; letterIdx++;
+    }
+  }
+  return {schools, classes, students};
+}
+function generateInitialApp(students){
+  const scores = {}, avatars = {}, history = [];
+  const now = Date.now();
+  students.forEach((s, i) => {
+    scores[s.id] = ((i*7)%80) + Math.floor(Math.random()*15);
+    avatars[s.id] = 'avatar_' + String((i%24)+1).padStart(2,'0');
+    const n = 1 + (i%3);
+    for(let k=0; k<n; k++){
+      const isPlus = (i+k)%3 !== 0;
+      history.push({
+        id: 'H'+i+'_'+k, studentId: s.id,
+        type: isPlus?'plus':'minus', points: isPlus?(1+(k%3)):-1,
+        reason: isPlus?'':'Nói chuyện',
+        timestamp: new Date(now - (i*3600000 + k*90000)).toISOString()
+      });
+    }
+  });
+  return {scores, avatars, history};
+}
+
+/* ---------- 6. SETTINGS ---------- */
+const DEFAULT_SETTINGS = {
+  animation: true, password: '1230',
+  levels: [
+    {level:1, min:0, max:9, name:'Mầm non', icon:'🌱'},
+    {level:2, min:10, max:19, name:'Khởi đầu', icon:'🌟'},
+    {level:3, min:20, max:39, name:'Tiến bộ', icon:'🥉'},
+    {level:4, min:40, max:69, name:'Vững vàng', icon:'🥈'},
+    {level:5, min:70, max:99, name:'Xuất sắc', icon:'🥇'},
+    {level:6, min:100, max:999999, name:'Ngôi sao', icon:'👑'}
+  ],
+  googleSheet: {url: ''}
+};
+function levelFromScore(score, levels){
+  return levels.find(l => score >= l.min && score <= l.max) || levels[levels.length-1];
+}
+
+/* ---------- 7. ACHIEVEMENTS ---------- */
+const ACHIEVEMENT_DEFS = [
+  {id:'A001', name:'Ngôi sao tích cực', icon:'⭐', desc:'Cộng điểm 10 lần'},
+  {id:'A002', name:'Chuỗi 5 ngày', icon:'🔥', desc:'Hoạt động 5 ngày liên tiếp'},
+  {id:'A003', name:'Tiến bộ vượt bậc', icon:'📈', desc:'Đạt từ 40 điểm'},
+  {id:'A004', name:'Nỗ lực đáng khen', icon:'💪', desc:'Vượt qua trừ điểm'},
+  {id:'A005', name:'Điểm cao', icon:'🏆', desc:'Đạt từ 100 điểm'},
+  {id:'A006', name:'Ngôi sao vàng', icon:'👑', desc:'Đạt từ 70 điểm'}
+];
+function hasConsecutiveDays(days, n){
+  const arr = [...days].map(d => new Date(d).getTime()).sort((a,b)=>a-b);
+  let s = 1;
+  for(let i=1;i<arr.length;i++){
+    const diff = (arr[i]-arr[i-1])/86400000;
+    if(Math.round(diff)===1){ s++; if(s>=n) return true; } else s = 1;
+  }
+  return arr.length>=n && s>=n;
+}
+
+/* ---------- 8. REWARDS ---------- */
+const DEFAULT_REWARDS = [
+  {id:'R001', name:'Sticker', requiredPoints:3, icon:'🎟️', enabled:true},
+  {id:'R002', name:'Bút chì', requiredPoints:10, icon:'🖊️', enabled:true},
+  {id:'R003', name:'Quà nhỏ', requiredPoints:30, icon:'🎁', enabled:true},
+  {id:'R004', name:'Huy hiệu', requiredPoints:50, icon:'🏅', enabled:true}
+];
+
+/* ---------- 9. SERVICES ---------- */
+const Services = {
+  students: [],
+  schools: [],
+  classes: [],
+  scores: {},
+  history: [],
+  avatars: {},
+  rewards: [...DEFAULT_REWARDS],
+  redemptions: [],
+  settings: {...DEFAULT_SETTINGS},
+  favorites: [],
+  recentStudents: [],
+
+  getScore(id){ return this.scores[id] ?? 0; },
+  setScore(id, v){ this.scores[id] = Math.max(0, v); },
+
+  getStudent(id){ return this.students.find(s => s.id === id); },
+  getSchools(){ return this.schools; },
+  getClasses(sid){ return this.classes.filter(c => c.schoolId === sid); },
+  getStudentsOfClass(sid, cid){
+    return this.students.filter(s => s.schoolId === sid && s.classId === cid);
+  },
+  countByInitial(sid, cid){
+    const m = {};
+    this.getStudentsOfClass(sid, cid).forEach(s => { m[s.initial] = (m[s.initial]||0) + 1; });
+    return m;
+  },
+  getStudentsByInitial(sid, cid, initial){
+    return this.getStudentsOfClass(sid, cid).filter(s => s.initial === initial);
+  },
+  totalScore(){ return Object.values(this.scores).reduce((a,b) => a + (b||0), 0); },
+
+  addHistory(rec){
+    const r = {
+      id: 'H' + Math.random().toString(36).slice(2, 9),
+      studentId: rec.studentId,
+      type: rec.type,
+      points: rec.points,
+      reason: rec.reason || '',
+      timestamp: new Date().toISOString()
+    };
+    this.history.push(r);
+    return r;
+  },
+  getHistoryOf(id){
+    return this.history.filter(r => r.studentId === id)
+      .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  },
+  getAllHistory(){
+    return [...this.history].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  },
+  removeHistory(id){
+    const i = this.history.findIndex(r => r.id === id);
+    if(i >= 0){ this.history.splice(i, 1); return true; }
+    return false;
+  },
+
+  evaluateAchievements(id){
+    const recs = this.getHistoryOf(id);
+    const plusCount = recs.filter(r => r.type === 'plus').length;
+    const score = this.getScore(id);
+    const days = new Set(recs.map(r => r.timestamp.slice(0,10)));
+    const out = [];
+    if(plusCount >= 10) out.push('A001');
+    if(hasConsecutiveDays(days, 5)) out.push('A002');
+    if(score >= 40) out.push('A003');
+    if(recs.some(r => r.type === 'minus') && score > 0) out.push('A004');
+    if(score >= 100) out.push('A005');
+    if(score >= 70) out.push('A006');
+    return out;
+  },
+
+  save(){
+    Storage.set('app_data', {
+      scores: this.scores,
+      history: this.history,
+      avatars: this.avatars,
+      rewards: this.rewards,
+      redemptions: this.redemptions,
+      favorites: this.favorites,
+      recentStudents: this.recentStudents
+    });
+    Storage.set('settings', this.settings);
+  },
+
+  load(){
+    const s = Storage.get('settings', null);
+    if(s) this.settings = {...DEFAULT_SETTINGS, ...s};
+    if(s?.password === 'classstar'){
+      this.settings.password = DEFAULT_SETTINGS.password;
+      Storage.set('settings', this.settings);
+    } else if(s?.password != null){
+      const password = String(s.password).trim() || DEFAULT_SETTINGS.password;
+      if(s.password !== password){
+        this.settings.password = password;
+        Storage.set('settings', this.settings);
+      }
+    }
+    const d = Storage.get('app_data', null);
+    if(d){
+      this.scores = d.scores || {};
+      this.history = d.history || [];
+      this.avatars = d.avatars || {};
+      this.rewards = d.rewards || [...DEFAULT_REWARDS];
+      this.redemptions = d.redemptions || [];
+      this.favorites = d.favorites || [];
+      this.recentStudents = d.recentStudents || [];
+    }
+    const cache = Storage.get('students_cache', null);
+    if(cache){
+      this.schools = cache.schools;
+      this.classes = cache.classes;
+      this.students = cache.students;
+    } else {
+      const demo = generateDemoData();
+      this.schools = demo.schools;
+      this.classes = demo.classes;
+      this.students = demo.students;
+      const init = generateInitialApp(this.students);
+      this.scores = init.scores;
+      this.avatars = init.avatars;
+      this.history = init.history;
+      Storage.set('students_cache', {schools: this.schools, classes: this.classes, students: this.students});
+      this.save();
+    }
+  }
+};
+
+function normalizeSheetHeader(value){
+  return String(value ?? '').replace(/[đĐ]/g,'d').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
+}
+function parseSheetCSV(text){
+  const matrix=[];let row=[],cell='',quoted=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(c==='"'){
+      if(quoted&&text[i+1]==='"'){cell+='"';i++;}
+      else quoted=!quoted;
+    }else if(c===','&&!quoted){row.push(cell);cell='';}
+    else if((c==='\n'||c==='\r')&&!quoted){
+      if(c==='\r'&&text[i+1]==='\n')i++;
+      row.push(cell);if(row.some(v=>v.trim()))matrix.push(row);
+      row=[];cell='';
+    }else cell+=c;
+  }
+  row.push(cell);if(row.some(v=>v.trim()))matrix.push(row);
+  if(!matrix.length)return [];
+  const [headers,...values]=matrix;
+  return values.map(values=>Object.fromEntries(headers.map((h,i)=>[String(h).trim(),String(values[i]??'').trim()])));
+}
+function parseSheetRecords(text,contentType){
+  const content=text.trim().replace(/^\uFEFF/,'');
+  if(!content)return [];
+  if(/json/i.test(contentType)||content.startsWith('[')||content.startsWith('{')){
+    let payload;
+    try{payload=JSON.parse(content);}
+    catch{throw new Error('Google Sheet trả về JSON không hợp lệ.');}
+    const records=Array.isArray(payload)?payload:payload?.data||payload?.rows||payload?.values;
+    if(!Array.isArray(records))throw new Error(payload?.error||payload?.message||'Phản hồi JSON không chứa danh sách học sinh.');
+    if(records.length&&Array.isArray(records[0])){
+      const [headers,...values]=records;
+      return values.map(values=>Object.fromEntries(headers.map((h,i)=>[String(h??''),values[i]??''])));
+    }
+    return records;
+  }
+  return parseSheetCSV(content);
+}
+async function loadStudentsFromSheet(url){
+  const controller=new AbortController();
+  const timeout=setTimeout(()=>controller.abort(),15000);
+  let response,text;
+  try{
+    response=await fetch(url,{method:'GET',signal:controller.signal});
+    if(!response.ok)throw new Error(`Google Sheet trả về lỗi HTTP ${response.status}.`);
+    text=await response.text();
+  }
+  catch(error){
+    if(error instanceof Error&&error.message.startsWith('Google Sheet trả về lỗi HTTP'))throw error;
+    if(error.name==='AbortError')throw new Error('Kết nối Google Sheet quá thời gian chờ.');
+    throw new Error('Không kết nối được Google Sheet. Kiểm tra URL, quyền truy cập và kết nối mạng.');
+  }finally{clearTimeout(timeout);}
+  const records=parseSheetRecords(text,response.headers.get('content-type')||'');
+  if(!records.length)throw new Error('Google Sheet không có dữ liệu.');
+  const schools=new Map(),classes=new Map(),students=[];
+  records.forEach((record,index)=>{
+    const fields=Object.fromEntries(Object.entries(record||{}).map(([key,value])=>[normalizeSheetHeader(key),String(value??'').trim()]));
+    const field=(...keys)=>keys.map(key=>fields[key]).find(Boolean)||'';
+    const name=field('hovaten','hoten','fullname','studentname','name')
+      ||[field('hovatendem','hotendem','middlename'),field('tenlot'),field('ten','givenname','firstname')].filter(Boolean).join(' ');
+    if(!name)return;
+    const className=field('lop','classname','class','classid')||'Khác';
+    const schoolName=field('truong','schoolname','school')||'Trường mặc định';
+    const schoolId=field('schoolid')||'S'+schoolName.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9]/g,'').slice(0,4).toUpperCase();
+    const cleanName=name.trim().replace(/\s+/g,' ');
+    const {givenName,initial}=parseVietnameseName(cleanName);
+    const student={id:field('id','studentid','maso')||makeStudentId(schoolId,className,cleanName,index),name:cleanName,givenName,initial,schoolId,schoolName,classId:className,className};
+    if(!schools.has(schoolId))schools.set(schoolId,{id:schoolId,name:schoolName});
+    const classKey=schoolId+'::'+className;
+    if(!classes.has(classKey))classes.set(classKey,{id:className,name:className,schoolId});
+    students.push(student);
+  });
+  if(!students.length)throw new Error('Không tìm thấy học sinh. Cần có cột tên, hoặc “Họ và tên đệm” và “Tên”.');
+  Services.students=students;
+  Services.schools=[...schools.values()];
+  Services.classes=[...classes.values()];
+  State.selectedSchool=null;
+  State.selectedClass=null;
+  State.selectedInitial=null;
+  const studentIds=new Set(students.map(student=>student.id));
+  Services.scores=Object.fromEntries(students.map(student=>[student.id,Services.scores[student.id]||0]));
+  Services.avatars=Object.fromEntries(Object.entries(Services.avatars).filter(([id])=>studentIds.has(id)));
+  Services.recentStudents=Services.recentStudents.filter(id=>studentIds.has(id));
+  const classKeys=new Set(classes.keys());
+  Services.favorites=Services.favorites.filter(key=>classKeys.has(key));
+  Storage.set('students_cache',{schools:Services.schools,classes:Services.classes,students:Services.students});
+  Services.save();
+  return students.length;
+}
+
+/* ---------- 10. STATE ---------- */
+const State = {
+  selectedSchool: null,
+  selectedClass: null,
+  selectedInitial: null,
+  currentView: 'home',
+  rankMode: 'score',
+  presStudentId: null
+};
+
+/* ---------- 11. AUTH ---------- */
+function showLogin(){
+  $('#login-view').classList.remove('hidden');
+  $('#app-view').classList.add('hidden');
+  $('#login-password')?.focus();
+}
+function showApp(){
+  $('#login-view').classList.add('hidden');
+  $('#app-view').classList.remove('hidden');
+  switchView('home');
+  renderAll();
+}
+
+function bindAuth(){
+  $('#login-toggle').addEventListener('click', () => {
+    const input = $('#login-password');
+    const visible = input.type === 'password';
+    input.type = visible ? 'text' : 'password';
+    $('#login-toggle').setAttribute('aria-pressed', String(visible));
+    $('#login-toggle').setAttribute('aria-label', visible ? 'Ẩn mật khẩu' : 'Hiện mật khẩu');
+  });
+  $('#login-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const pw = $('#login-password').value.trim();
+    const err = $('#login-error');
+    if(pw === String(Services.settings.password ?? DEFAULT_SETTINGS.password).trim()){
+      err.textContent = '';
+      Storage.set('session', {loggedIn: true, at: Date.now()});
+      showApp();
+    } else {
+      err.textContent = '❌ Mật khẩu không đúng.';
+      $('#login-password').value = '';
+      $('#login-password').focus();
+    }
+  });
+  $('#btn-logout').addEventListener('click', () => {
+    Storage.set('session', {loggedIn: false});
+    showLogin();
+  });
+}
+
+/* ---------- 12. NAV ---------- */
+function switchView(v){
+  State.currentView = v;
+  ['home','class','ranking','rewards','history','settings'].forEach(x => {
+    $('#view-'+x).classList.toggle('hidden', x !== v);
+  });
+  $$('.nav-item, .bn-item').forEach(el => el.classList.toggle('active', el.dataset.view === v));
+  renderView(v);
+}
+function bindNav(){
+  $$('[data-view]').forEach(b => b.addEventListener('click', () => {
+    switchView(b.dataset.view);
+    $('#sidebar').classList.remove('open');
+  }));
+  $('#btn-menu').addEventListener('click', () => $('#sidebar').classList.toggle('open'));
+  $('#btn-presentation').addEventListener('click', () => {
+    if(!State.selectedSchool || !State.selectedClass){ toast('Hãy chọn trường và lớp trước.', 'warn'); return; }
+    const list = Services.getStudentsOfClass(State.selectedSchool, State.selectedClass);
+    if(!list.length){ toast('Lớp chưa có học sinh.', 'warn'); return; }
+    openPresentation(list[0].id);
+  });
+}
+
+/* ---------- 13. RENDER ---------- */
+function renderAll(){
+  renderTopbar();
+  renderView(State.currentView);
+}
+function renderTopbar(){
+  const s = State.selectedSchool ? Services.schools.find(x => x.id === State.selectedSchool) : null;
+  $('#topbar-ctx').innerHTML =
+    `<span>${s ? '🏫 ' + esc(s.name) : '🏫 Chưa chọn trường'}</span>` +
+    (State.selectedClass ? `<span>📚 ${esc(State.selectedClass)}</span>` : '');
+  $('#topbar-stats').innerHTML =
+    `<span class="pill">👥 ${Services.students.length} học sinh</span>` +
+    `<span class="pill gold">⭐ ${Services.totalScore()} sao</span>`;
+}
+function renderView(v){
+  const el = $('#view-'+v);
+  if(!el) return;
+  if(v === 'home') el.innerHTML = renderHome();
+  else if(v === 'class') el.innerHTML = renderClass();
+  else if(v === 'ranking') el.innerHTML = renderRanking();
+  else if(v === 'rewards') el.innerHTML = renderRewards();
+  else if(v === 'history') el.innerHTML = renderHistory();
+  else if(v === 'settings') el.innerHTML = renderSettings();
+  renderTopbar();
+  bindViewEvents();
+}
+
+/* --- HOME --- */
+function renderHome(){
+  const schools = Services.getSchools();
+  const fav = Services.favorites.length
+    ? `<div class="section-title">⭐ Lớp yêu thích</div><div class="chips">${
+        Services.favorites.map(key => {
+          const [sid, cid] = key.split('::');
+          const school = schools.find(s => s.id === sid);
+          return `<button class="chip" data-fav="${key}">📚 ${esc(cid)} <span class="count">${esc(school?.name?.slice(0,14)||sid)}</span></button>`;
+        }).join('')
+      }</div>` : '';
+  const recent = Services.recentStudents.length
+    ? `<div class="section-title">🕘 Gần đây</div><div class="chips">${
+        Services.recentStudents.slice(0,6).map(id => {
+          const s = Services.getStudent(id); if(!s) return '';
+          return `<button class="chip" data-open-student="${s.id}">${studentNameAndContext(s)}</button>`;
+        }).join('')
+      }</div>` : '';
+  const groups = schools.map(sch => {
+    const cls = Services.getClasses(sch.id);
+    return `<div class="school-group">
+      <div class="school-head">🏫 ${esc(sch.name)}</div>
+      <div class="chips">${cls.map(c =>
+        `<button class="chip" data-pick="${sch.id}::${c.id}">📚 ${esc(c.name)} <span class="count">${Services.getStudentsOfClass(sch.id, c.id).length}</span></button>`
+      ).join('')}</div>
+    </div>`;
+  }).join('');
+  return `
+    <h1 class="page-title">Xin chào 👋</h1>
+    <p class="page-sub">Chọn nhanh lớp để bắt đầu cộng điểm thi đua.</p>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-value">${Services.students.length}</div><div class="stat-label">Học sinh</div></div>
+      <div class="stat-card"><div class="stat-icon">🏫</div><div class="stat-value">${schools.length}</div><div class="stat-label">Trường</div></div>
+      <div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-value">${Services.totalScore()}</div><div class="stat-label">Tổng sao</div></div>
+      <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-value">${Services.classes.length}</div><div class="stat-label">Lớp</div></div>
+    </div>
+    ${fav}${recent}
+    <div class="section-title">📚 Lớp của tôi</div>
+    ${groups}`;
+}
+
+/* --- CLASS --- */
+function renderClass(){
+  if(!State.selectedSchool){
+    return `<h1 class="page-title">🔎 Tìm học sinh</h1>
+      <p class="page-sub">Chọn trường để bắt đầu.</p>
+      <div class="filter-bar"><div class="filter-row"><span class="label">Trường</span>
+        <div class="chips">${Services.schools.map(s =>
+          `<button class="chip" data-school="${s.id}">🏫 ${esc(s.name)}</button>`).join('')}</div>
+      </div></div>`;
+  }
+  const classes = Services.getClasses(State.selectedSchool);
+  const clsHTML = classes.map(c =>
+    `<button class="chip ${c.id===State.selectedClass?'active':''}" data-class="${c.id}">📚 ${esc(c.name)}</button>`
+  ).join('');
+
+  let alphaHTML = '', studentsHTML = '';
+  if(State.selectedClass){
+    const counts = Services.countByInitial(State.selectedSchool, State.selectedClass);
+    alphaHTML = VIETNAMESE_INITIALS.map(l => {
+      const n = counts[l] || 0;
+      const dis = n === 0 ? 'disabled' : '';
+      const act = l === State.selectedInitial ? 'active' : '';
+      return `<button class="alpha-btn ${act}" ${dis} data-alpha="${l}">${l}</button>`;
+    }).join('');
+    if(State.selectedInitial){
+      const list = Services.getStudentsByInitial(State.selectedSchool, State.selectedClass, State.selectedInitial);
+      studentsHTML = `<div class="student-grid">${list.map(s => renderStudentCard(s)).join('')}</div>`;
+    } else {
+      studentsHTML = `<div class="empty"><div class="empty-icon">🔤</div><p>Chọn chữ cái đầu của <b>tên riêng</b> để xem học sinh.</p></div>`;
+    }
+  }
+  return `
+    <h1 class="page-title">🔎 Tìm học sinh</h1>
+    <p class="page-sub">Luồng: <b>Trường → Lớp → Chữ cái → Học sinh</b></p>
+    <div class="filter-bar">
+      <div class="filter-row"><span class="label">Trường</span><div class="chips">
+        ${Services.schools.map(s =>
+          `<button class="chip ${s.id===State.selectedSchool?'active':''}" data-school="${s.id}">🏫 ${esc(s.name)}</button>`
+        ).join('')}
+      </div></div>
+      ${State.selectedSchool ? `<div class="filter-row"><span class="label">Lớp</span><div class="chips">${clsHTML}</div></div>` : ''}
+      ${State.selectedClass ? `<div class="filter-row"><span class="label">Chữ cái</span><div class="alpha-row">${alphaHTML}</div></div>` : ''}
+    </div>
+    ${studentsHTML}`;
+}
+function renderStudentCard(s){
+  const score = Services.getScore(s.id);
+  const level = levelFromScore(score, Services.settings.levels);
+  const avatarId = Services.avatars[s.id] || 'avatar_01';
+  return `<div class="student-card">
+    <div class="avatar-wrap">
+      <img class="avatar-img" src="${avatarDataURL(avatarId)}" alt="">
+      <button class="avatar-edit" data-avatar="${s.id}" title="Đổi avatar">✏️</button>
+    </div>
+    <div class="student-name">${esc(s.name)}</div>
+    <div class="student-sub">${esc(studentContextLabel(s,false))}</div>
+    <div class="score-big" data-score="${s.id}">⭐ ${score}</div>
+    <div class="level-tag">${level.icon} L${level.level} • ${esc(level.name)}</div>
+    <div class="actions">
+      <button data-plus="1" data-id="${s.id}">+1</button>
+      <button data-plus="2" data-id="${s.id}">+2</button>
+      <button data-plus="5" data-id="${s.id}">+5</button>
+      <button class="minus" data-minus data-id="${s.id}">−</button>
+    </div>
+  </div>`;
+}
+
+/* --- RANKING --- */
+function renderRanking(){
+  if(!State.selectedSchool || !State.selectedClass){
+    return `<h1 class="page-title">🏆 Xếp hạng</h1>
+      <p class="page-sub">Hãy chọn lớp trước (ở mục Tìm học sinh).</p>`;
+  }
+  const list = Services.getStudentsOfClass(State.selectedSchool, State.selectedClass);
+  const mode = State.rankMode;
+  const data = list.map(s => {
+    let value;
+    if(mode === 'progress'){
+      const since = Date.now() - 7*86400000;
+      value = Services.getHistoryOf(s.id)
+        .filter(r => new Date(r.timestamp).getTime() >= since)
+        .reduce((a, r) => a + r.points, 0);
+    } else if(mode === 'streak'){
+      value = new Set(Services.getHistoryOf(s.id)
+        .filter(r => r.type === 'plus')
+        .map(r => r.timestamp.slice(0,10))).size;
+    } else {
+      value = Services.getScore(s.id);
+    }
+    return {student: s, value};
+  }).sort((a,b) => b.value - a.value);
+  const tabs = [
+    {key:'score', label:'🏆 Điểm cao'},
+    {key:'progress', label:'📈 Tiến bộ (7 ngày)'},
+    {key:'streak', label:'🔥 Chuỗi tích cực'}
+  ];
+  return `
+    <h1 class="page-title">🏆 Xếp hạng lớp ${esc(State.selectedClass)}</h1>
+    <p class="page-sub">Nhiều tiêu chí – không chỉ Top 3.</p>
+    <div class="rank-tabs">
+      ${tabs.map(t => `<button class="chip ${mode===t.key?'active':''}" data-rank="${t.key}">${t.label}</button>`).join('')}
+    </div>
+    <div class="rank-list">
+      ${data.map((row, i) => {
+        const s = row.student;
+        const avatarId = Services.avatars[s.id] || 'avatar_01';
+        const score = Services.getScore(s.id);
+        const level = levelFromScore(score, Services.settings.levels);
+        const cls = i === 0 ? 'top1' : i === 1 ? 'top2' : i === 2 ? 'top3' : '';
+        return `<div class="rank-row ${cls}" data-open-student="${s.id}">
+          <div class="rank-pos">${i+1}</div>
+          <img class="rank-avatar" src="${avatarDataURL(avatarId)}" alt="">
+          <div class="rank-info">
+            <div class="rank-name">${esc(s.name)}</div>
+            <div class="rank-sub">${esc(studentContextLabel(s,false))} • ${level.icon} L${level.level} • ${esc(level.name)}</div>
+          </div>
+          <div class="rank-score">${row.value}${mode==='score'?' ⭐':''}</div>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+/* --- REWARDS --- */
+function renderRewards(){
+  let studentsHTML = '';
+  if(State.selectedSchool && State.selectedClass){
+    const list = Services.getStudentsOfClass(State.selectedSchool, State.selectedClass);
+    studentsHTML = `
+      <div class="section-title">🎁 Chọn học sinh để đổi quà</div>
+      <div class="chips">${list.map(s =>
+        `<button class="chip" data-redeem="${s.id}">${studentNameAndContext(s)} <span class="count">⭐${Services.getScore(s.id)}</span></button>`
+      ).join('')}</div>`;
+  }
+  const rewardsHTML = `
+    <div class="section-title">🛍️ Danh mục quà</div>
+    <div class="reward-grid">
+      ${Services.rewards.filter(r=>r.enabled).map(r => `
+        <div class="reward-card">
+          <div class="reward-icon">${r.icon}</div>
+          <div class="reward-name">${esc(r.name)}</div>
+          <div class="reward-cost">${r.requiredPoints} ⭐</div>
+          <div class="reward-status unlocked">🔓 Đang mở</div>
+        </div>`).join('')}
+      ${Services.rewards.some(r=>r.enabled)?'':'<div class="empty"><span class="empty-icon">🎁</span><p>Hiện chưa có phần quà đang mở.</p></div>'}
+    </div>`;
+  return `
+    <h1 class="page-title">🎁 Đổi quà</h1>
+    <p class="page-sub">Học sinh dùng sao để đổi phần thưởng.</p>
+    ${studentsHTML}${rewardsHTML}`;
+}
+
+/* --- HISTORY --- */
+function renderHistory(){
+  const recs = Services.getAllHistory().slice(0, 200);
+  return `
+    <h1 class="page-title">📜 Lịch sử gần đây</h1>
+    <p class="page-sub">200 bản ghi mới nhất trên toàn hệ thống.</p>
+    <div class="list-card">
+      ${recs.length ? recs.map(r => {
+        const s = Services.getStudent(r.studentId);
+        const name = s ? s.name : r.studentId;
+        const isPlus = r.type === 'plus';
+        const icon = r.type === 'redeem' ? '🎁' : isPlus ? '⭐' : '🔻';
+        const cls = r.type === 'redeem' ? 'redeem' : isPlus ? 'plus' : 'minus';
+        return `<div class="history-row">
+          <div class="hr-icon ${cls}">${icon}</div>
+          <div class="hr-body">
+            <div class="hr-title">${esc(name)}</div>
+            <div class="hr-sub">${fmtDT(r.timestamp)} • ${esc(r.reason || (r.type==='redeem'?'Đổi quà':(isPlus?'Cộng điểm':'Trừ điểm')))}</div>
+          </div>
+          <div class="hr-points" style="color:${isPlus?'var(--green)':'var(--red)'}">${r.points>0?'+':''}${r.points}</div>
+        </div>`;
+      }).join('') : '<div class="empty"><span class="empty-icon">📜</span><p>Chưa có bản ghi nào.</p></div>'}
+    </div>`;
+}
+
+/* --- SETTINGS --- */
+function renderSettings(){
+  const s = Services.settings;
+  return `
+    <h1 class="page-title">⚙️ Cài đặt</h1>
+    <p class="page-sub">Quản lý mật khẩu, animation, dữ liệu.</p>
+    <div class="settings-section">
+      <h3>🔐 Bảo mật</h3>
+      <div class="field"><label>Mật khẩu đăng nhập</label>
+        <input type="text" id="set-password" value="${esc(s.password)}"></div>
+    </div>
+    <div class="settings-section">
+      <h3>✨ Giao diện</h3>
+      <div class="switch"><span>Bật animation</span>
+        <input type="checkbox" id="set-animation" ${s.animation?'checked':''}></div>
+    </div>
+    <div class="settings-section">
+      <h3>🎮 Bảng Level</h3>
+      <div style="font-size:13px;color:var(--mut);line-height:2">
+        ${s.levels.map(l => `${l.icon} <b>L${l.level} – ${esc(l.name)}</b>: ${l.min} – ${l.max === 999999 ? '∞' : l.max} ⭐`).join('<br>')}
+      </div>
+    </div>
+    <div class="settings-section">
+      <h3>🎁 Cấu hình phần quà</h3>
+      <p style="font-size:12px;color:var(--mut);margin:0 0 14px">Chỉnh biểu tượng, tên và số sao cần đổi. Có thể tạm ẩn quà hoặc thêm quà mới.</p>
+      <div id="rewards-editor">${renderRewardsEditor()}</div>
+      <button class="btn btn-primary" id="add-reward" style="margin-top:12px">＋ Thêm phần quà</button>
+    </div>
+    <div class="settings-section">
+      <h3>🌐 Google Sheet (tùy chọn)</h3>
+      <div class="field"><label>URL Google Sheet / Apps Script</label>
+        <input type="text" id="set-sheet" value="${esc(s.googleSheet?.url||'')}" placeholder="Dán URL CSV, JSON hoặc Google Apps Script"></div>
+      <p style="font-size:12px;color:var(--mut);margin:8px 0 12px">Hỗ trợ CSV/JSON. Cột tên có thể là <b>Họ và tên</b> hoặc <b>Họ và tên đệm</b> + <b>Tên</b>; cần có <b>Lớp</b>, có thể thêm <b>Trường</b>.</p>
+      <button class="btn btn-primary" id="btn-reload-sheet">🔄 Nạp dữ liệu từ Sheet</button>
+    </div>
+    <div class="settings-section">
+      <h3>💾 Dữ liệu</h3>
+      <div class="field-row">
+        <button class="btn btn-primary" id="btn-export">💾 Xuất JSON</button>
+        <button class="btn btn-ghost" id="btn-import">📥 Nhập JSON</button>
+      </div>
+      <input type="file" id="file-import" accept="application/json" hidden style="display:none">
+      <button class="btn btn-danger" id="btn-reset" style="margin-top:10px">🗑️ Xoá toàn bộ dữ liệu</button>
+    </div>
+    <div class="settings-section">
+      <h3>ℹ️ Thông tin</h3>
+      <p style="color:var(--mut);font-size:13px;line-height:1.6;margin:0">
+        Class Star v1.0 — Dữ liệu lưu cục bộ trên trình duyệt hiện tại.<br>
+        Để đồng bộ nhiều thiết bị, cấu hình Google Sheet hoặc backend.
+      </p>
+    </div>`;
+}
+
+function renderRewardsEditor(){
+  if(!Services.rewards.length)return '<div class="empty" style="padding:16px">Chưa có phần quà. Hãy thêm quà mới.</div>';
+  return Services.rewards.map(reward=>`
+    <div class="reward-setting-row" data-reward-row="${esc(reward.id)}">
+      <label class="reward-setting-field"><span>Biểu tượng</span>
+        <input type="text" maxlength="8" data-reward-icon="${esc(reward.id)}" value="${esc(reward.icon)}" aria-label="Biểu tượng phần quà">
+      </label>
+      <label class="reward-setting-field"><span>Tên phần quà</span>
+        <input type="text" maxlength="60" data-reward-name="${esc(reward.id)}" value="${esc(reward.name)}" aria-label="Tên phần quà">
+      </label>
+      <label class="reward-setting-field"><span>Số sao cần đổi</span>
+        <input type="number" min="1" step="1" data-reward-points="${esc(reward.id)}" value="${Number(reward.requiredPoints)}" aria-label="Số sao cần đổi">
+      </label>
+      <label class="reward-setting-enabled"><input type="checkbox" data-reward-enabled="${esc(reward.id)}" ${reward.enabled?'checked':''}> Đang mở</label>
+      <button type="button" class="btn btn-danger" data-remove-reward="${esc(reward.id)}" aria-label="Xóa ${esc(reward.name)}">Xóa</button>
+    </div>
+  `).join('');
+}
+
+/* ---------- 14. VIEW EVENTS ---------- */
+function bindViewEvents(){
+  const v = State.currentView;
+  if(v === 'home'){
+    $$('[data-pick]').forEach(el => el.addEventListener('click', () => {
+      const [sid, cid] = el.dataset.pick.split('::');
+      State.selectedSchool = sid;
+      State.selectedClass = cid;
+      State.selectedInitial = null;
+      rememberClass(sid, cid);
+      switchView('class');
+    }));
+    $$('[data-fav]').forEach(el => el.addEventListener('click', () => {
+      const [sid, cid] = el.dataset.fav.split('::');
+      State.selectedSchool = sid;
+      State.selectedClass = cid;
+      State.selectedInitial = null;
+      switchView('class');
+    }));
+  }
+  if(v === 'class'){
+    $$('[data-school]').forEach(el => el.addEventListener('click', () => {
+      State.selectedSchool = el.dataset.school;
+      State.selectedClass = null;
+      State.selectedInitial = null;
+      renderView('class');
+    }));
+    $$('[data-class]').forEach(el => el.addEventListener('click', () => {
+      State.selectedClass = el.dataset.class;
+      State.selectedInitial = null;
+      rememberClass(State.selectedSchool, State.selectedClass);
+      renderView('class');
+    }));
+    $$('[data-alpha]').forEach(el => el.addEventListener('click', () => {
+      State.selectedInitial = el.dataset.alpha;
+      renderView('class');
+    }));
+  }
+  if(v === 'ranking'){
+    $$('[data-rank]').forEach(el => el.addEventListener('click', () => {
+      State.rankMode = el.dataset.rank;
+      renderView('ranking');
+    }));
+  }
+  if(v === 'rewards'){
+    $$('[data-redeem]').forEach(el => el.addEventListener('click', () => {
+      openRedeemModal(el.dataset.redeem);
+    }));
+  }
+  if(v === 'settings'){
+    bindSettings();
+  }
+  // Universal: student card + avatar + plus/minus + open-student
+  $$('[data-plus]').forEach(el => el.addEventListener('click', e => {
+    e.stopPropagation();
+    handlePlus(el.dataset.id, parseInt(el.dataset.plus, 10), e.currentTarget);
+  }));
+  $$('[data-minus]').forEach(el => el.addEventListener('click', e => {
+    e.stopPropagation();
+    handleMinus(el.dataset.id);
+  }));
+  $$('[data-avatar]').forEach(el => el.addEventListener('click', e => {
+    e.stopPropagation();
+    openAvatarPicker(el.dataset.avatar);
+  }));
+  $$('[data-open-student]').forEach(el => el.addEventListener('click', () => {
+    openStudentSheet(el.dataset.openStudent);
+  }));
+}
+
+function rememberClass(sid, cid){
+  const key = sid + '::' + cid;
+  Services.favorites = [key, ...Services.favorites.filter(k => k !== key)].slice(0, 6);
+  Services.save();
+}
+function rememberStudent(id){
+  Services.recentStudents = [id, ...Services.recentStudents.filter(x => x !== id)].slice(0, 8);
+  Services.save();
+}
+
+/* ---------- 15. PLUS / MINUS ---------- */
+function handlePlus(studentId, delta, btnEl){
+  const before = Services.getScore(studentId);
+  const beforeLevel = levelFromScore(before, Services.settings.levels);
+  Services.setScore(studentId, before + delta);
+  const after = Services.getScore(studentId);
+  const afterLevel = levelFromScore(after, Services.settings.levels);
+  Services.addHistory({studentId, type:'plus', points: delta, reason: ''});
+  rememberStudent(studentId);
+  Services.save();
+
+  // Animation
+  if(Services.settings.animation){
+    if(btnEl){
+      const r = btnEl.getBoundingClientRect();
+      starBurst(r.left + r.width/2, r.top + r.height/2, 6);
+    }
+    confetti(600);
+    if(afterLevel.level > beforeLevel.level){
+      levelUpBanner(`👑 LÊN LEVEL ${afterLevel.level} – ${afterLevel.name}`);
+      setTimeout(() => confetti(1800), 200);
+    }
+  }
+  // Update DOM ngay
+  const scoreEl = document.querySelector(`[data-score="${studentId}"]`);
+  if(scoreEl){
+    scoreEl.textContent = '⭐ ' + after;
+    scoreEl.classList.add('bounce-score');
+    setTimeout(() => scoreEl.classList.remove('bounce-score'), 500);
+  }
+  // Rerender nếu ở view khác
+  if(State.currentView !== 'class') renderView(State.currentView);
+  // Update presentation nếu đang mở
+  if(!$('#presentation-view').classList.contains('hidden')){
+    renderPresentation();
+  }
+  const student=Services.getStudent(studentId);
+  toast(`+${delta} cho ${student ? `${student.name} • ${student.className}` : 'HS'}`, 'success', 1800);
+}
+
+function handleMinus(studentId){
+  const reasons = [
+    {icon:'🔊', text:'Nói chuyện', points:-1},
+    {icon:'🚶', text:'Mất trật tự', points:-1},
+    {icon:'💻', text:'Không làm bài', points:-2},
+    {icon:'⏰', text:'Đi muộn', points:-2},
+    {icon:'📚', text:'Quên đồ dùng', points:-1},
+    {icon:'❓', text:'Khác', points:-1}
+  ];
+  const s = Services.getStudent(studentId);
+  openModal(`
+    <h3>🔻 Trừ điểm</h3>
+    <p class="modal-sub">Học sinh: <b>${esc(s.name)}</b> • ${esc(studentContextLabel(s))} • Điểm hiện tại: ⭐ ${Services.getScore(studentId)}</p>
+    <div class="reason-grid">
+      ${reasons.map((r, i) => `
+        <button class="reason-btn" data-reason-idx="${i}">
+          <strong>${r.icon} ${esc(r.text)}</strong>
+          <small>${r.points} ⭐</small>
+        </button>`).join('')}
+    </div>
+    <div id="custom-reason-wrap"></div>
+  `, modal => {
+    modal.querySelectorAll('.reason-btn').forEach(btn => btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.reasonIdx, 10);
+      const r = reasons[idx];
+      if(r.text === 'Khác'){
+        const wrap = modal.querySelector('#custom-reason-wrap');
+        if(wrap.innerHTML) return;
+        wrap.innerHTML = `
+          <div class="reason-custom">
+            <input type="text" id="custom-reason" placeholder="Nhập lý do...">
+          </div>
+          <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px">
+            <button class="btn btn-ghost" id="btn-cancel-reason">Huỷ</button>
+            <button class="btn btn-danger" id="btn-confirm-custom">Xác nhận −1</button>
+          </div>`;
+        wrap.querySelector('#btn-cancel-reason').addEventListener('click', closeModal);
+        wrap.querySelector('#btn-confirm-custom').addEventListener('click', () => {
+          const txt = wrap.querySelector('#custom-reason').value.trim() || 'Khác';
+          applyMinus(studentId, -1, txt);
+          closeModal();
+        });
+      } else {
+        applyMinus(studentId, r.points, r.text);
+        closeModal();
+      }
+    }));
+  });
+}
+
+function applyMinus(studentId, points, reason){
+  const before = Services.getScore(studentId);
+  Services.setScore(studentId, before + points); // points là âm
+  Services.addHistory({studentId, type:'minus', points, reason});
+  Services.save();
+  if(Services.settings.animation) confetti(400);
+  if(State.currentView !== 'class') renderView(State.currentView);
+  else renderView('class');
+  if(!$('#presentation-view').classList.contains('hidden')) renderPresentation();
+  const student=Services.getStudent(studentId);
+  toast(`−${Math.abs(points)} ${reason}${student?` • ${student.name} • ${student.className}`:''}`, 'warn', 1800);
+}
+
+/* ---------- 16. AVATAR PICKER ---------- */
+function openAvatarPicker(studentId){
+  const s = Services.getStudent(studentId);
+  const current = Services.avatars[studentId] || 'avatar_01';
+  openModal(`
+    <h3>✏️ Đổi avatar</h3>
+    <p class="modal-sub">Chọn cho <b>${esc(s.name)}</b> • ${esc(studentContextLabel(s))}</p>
+    <div class="avatar-picker">
+      ${AVATARS.map(a => `
+        <button class="avatar-pick ${a.id===current?'selected':''}" data-av="${a.id}">
+          <img src="${avatarDataURL(a.id)}" alt="">
+        </button>`).join('')}
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:16px">
+      <button class="btn btn-ghost" id="avatar-cancel">Đóng</button>
+    </div>
+  `, modal => {
+    modal.querySelector('#avatar-cancel').addEventListener('click', closeModal);
+    modal.querySelectorAll('.avatar-pick').forEach(btn => btn.addEventListener('click', () => {
+      Services.avatars[studentId] = btn.dataset.av;
+      Services.save();
+      closeModal();
+      if(State.currentView === 'class') renderView('class');
+      if(!$('#presentation-view').classList.contains('hidden')) renderPresentation();
+      toast('Đã đổi avatar', 'success', 1200);
+    }));
+  });
+}
+
+/* ---------- 17. STUDENT SHEET ---------- */
+function openStudentSheet(studentId){
+  const s = Services.getStudent(studentId);
+  if(!s) return;
+  const score = Services.getScore(studentId);
+  const level = levelFromScore(score, Services.settings.levels);
+  const avatarId = Services.avatars[studentId] || 'avatar_01';
+  const achs = Services.evaluateAchievements(studentId);
+  const hist = Services.getHistoryOf(studentId).slice(0, 15);
+  openModal(`
+    <div style="text-align:center;margin-bottom:14px">
+      <img src="${avatarDataURL(avatarId)}" style="width:100px;height:100px;border-radius:50%;border:3px solid #fff;box-shadow:0 6px 18px rgba(58,47,122,.18)">
+      <h3 style="margin:10px 0 4px">${esc(s.name)}</h3>
+      <p class="modal-sub" style="margin:0">${esc(studentContextLabel(s))}</p>
+      <div style="font-size:38px;font-weight:900;color:var(--gold2);margin:8px 0">⭐ ${score}</div>
+      <div class="level-tag">${level.icon} LEVEL ${level.level} – ${esc(level.name)}</div>
+    </div>
+    ${achs.length ? `<div style="text-align:center;margin-bottom:14px">${achs.map(id => {
+      const a = ACHIEVEMENT_DEFS.find(x => x.id === id);
+      return `<span class="level-tag" style="margin:2px">${a.icon} ${esc(a.name)}</span>`;
+    }).join('')}</div>` : ''}
+    <h4 style="margin:16px 0 8px">🎁 Đổi quà</h4>
+    <div class="chips">
+      ${Services.rewards.filter(r => r.enabled).map(r => {
+        const can = score >= r.requiredPoints;
+        return `<button class="chip ${can?'':'disabled'}" data-modal-redeem="${r.id}" ${can?'':'disabled'}>
+          ${r.icon} ${esc(r.name)} <span class="count">${r.requiredPoints}⭐</span>
+        </button>`;
+      }).join('')}
+    </div>
+    <h4 style="margin:16px 0 8px">📜 Lịch sử gần đây</h4>
+    <div style="max-height:220px;overflow-y:auto">
+      ${hist.length ? hist.map(r => {
+        const isPlus = r.type === 'plus';
+        const icon = r.type === 'redeem' ? '🎁' : isPlus ? '⭐' : '🔻';
+        const cls = r.type === 'redeem' ? 'redeem' : isPlus ? 'plus' : 'minus';
+        return `<div class="history-row">
+          <div class="hr-icon ${cls}">${icon}</div>
+          <div class="hr-body">
+            <div class="hr-title">${isPlus?'+':''}${r.points}${r.reason?' • '+esc(r.reason):''}</div>
+            <div class="hr-sub">${fmtDT(r.timestamp)}</div>
+          </div>
+        </div>`;
+      }).join('') : '<div class="empty" style="padding:20px"><p>Chưa có lịch sử</p></div>'}
+    </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px">
+      <button class="btn btn-ghost" id="sheet-undo">↩ Hoàn tác gần nhất</button>
+      <button class="btn btn-primary" id="sheet-close">Đóng</button>
+    </div>
+  `, modal => {
+    modal.querySelector('#sheet-close').addEventListener('click', closeModal);
+    modal.querySelector('#sheet-undo').addEventListener('click', () => {
+      const last = Services.getHistoryOf(studentId).find(r => r.type === 'plus' || r.type === 'minus');
+      if(!last){ toast('Không có gì để hoàn tác.', 'warn'); return; }
+      Services.setScore(studentId, Services.getScore(studentId) - last.points);
+      Services.removeHistory(last.id);
+      Services.save();
+      closeModal();
+      renderView(State.currentView);
+      toast('Đã hoàn tác thao tác gần nhất.', 'success');
+    });
+    modal.querySelectorAll('[data-modal-redeem]').forEach(btn => btn.addEventListener('click', () => {
+      closeModal();
+      redeem(studentId, btn.dataset.modalRedeem);
+    }));
+  });
+}
+
+/* ---------- 18. REDEEM ---------- */
+function openRedeemModal(studentId){
+  const s = Services.getStudent(studentId);
+  const score = Services.getScore(studentId);
+  openModal(`
+    <h3>🎁 Đổi quà</h3>
+    <p class="modal-sub"><b>${esc(s.name)}</b> • ${esc(studentContextLabel(s))} — hiện có ⭐ ${score}</p>
+    <div class="reward-grid" style="grid-template-columns:1fr 1fr">
+      ${Services.rewards.filter(r => r.enabled).map(r => {
+        const can = score >= r.requiredPoints;
+        return `<div class="reward-card" style="padding:14px">
+          <div class="reward-icon" style="font-size:32px">${r.icon}</div>
+          <div class="reward-name" style="font-size:14px">${esc(r.name)}</div>
+          <div class="reward-cost">${r.requiredPoints} ⭐</div>
+          <div class="reward-status ${can?'unlocked':'locked'}">${can?'🔓 Đổi được':'🔒 Chưa đủ sao'}</div>
+          <button class="btn ${can?'btn-primary':'btn-ghost'} btn-block" data-redeem-id="${r.id}" ${can?'':'disabled'} style="margin-top:8px">
+            ${can?'Đổi ngay':'Chưa đủ'}
+          </button>
+        </div>`;
+      }).join('')}
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:14px">
+      <button class="btn btn-ghost" id="redeem-close">Đóng</button>
+    </div>
+  `, modal => {
+    modal.querySelector('#redeem-close').addEventListener('click', closeModal);
+    modal.querySelectorAll('[data-redeem-id]').forEach(btn => btn.addEventListener('click', () => {
+      closeModal();
+      redeem(studentId, btn.dataset.redeemId);
+    }));
+  });
+}
+
+function redeem(studentId, rewardId){
+  const r = Services.rewards.find(x => x.id === rewardId);
+  if(!r) return;
+  const score = Services.getScore(studentId);
+  if(score < r.requiredPoints){
+    toast('Chưa đủ sao để đổi!', 'error');
+    return;
+  }
+  Services.setScore(studentId, score - r.requiredPoints);
+  Services.addHistory({studentId, type:'redeem', points: -r.requiredPoints, reason: 'Đổi: ' + r.name});
+  Services.redemptions.push({studentId, rewardId, at: new Date().toISOString()});
+  Services.save();
+  if(Services.settings.animation){
+    confetti(2000);
+    levelUpBanner(`🎁 ĐỔI ${r.icon} ${r.name.toUpperCase()}`);
+  }
+  renderView(State.currentView);
+  toast(`Đổi thành công ${r.icon} ${r.name}`, 'success');
+}
+
+/* ---------- 19. SETTINGS BIND ---------- */
+function bindSettings(){
+  bindRewardSettings();
+  $('#set-password')?.addEventListener('change', e => {
+    Services.settings.password = e.target.value || '1230';
+    Services.save();
+    toast('Đã lưu mật khẩu.', 'success');
+  });
+  $('#set-animation')?.addEventListener('change', e => {
+    Services.settings.animation = e.target.checked;
+    Services.save();
+  });
+  $('#set-sheet')?.addEventListener('change', e => {
+    Services.settings.googleSheet = {url: e.target.value.trim()};
+    Services.save();
+  });
+  $('#btn-reload-sheet')?.addEventListener('click', async e => {
+    const button=e.currentTarget;
+    const url=$('#set-sheet').value.trim();
+    Services.settings.googleSheet={url};
+    Services.save();
+    if(!url){toast('Vui lòng nhập URL Google Sheet.','warn');return;}
+    button.disabled=true;
+    button.textContent='⏳ Đang tải dữ liệu...';
+    try{
+      const count=await loadStudentsFromSheet(url);
+      toast(`Đã nạp ${count} học sinh từ Google Sheet.`,'success');
+      renderView(State.currentView);
+    }catch(error){
+      toast('Không tải được Google Sheet: '+error.message,'error',6000);
+    }finally{
+      if(button.isConnected){button.disabled=false;button.textContent='🔄 Nạp dữ liệu từ Sheet';}
+    }
+  });
+  $('#btn-export')?.addEventListener('click', exportJSON);
+  $('#btn-import')?.addEventListener('click', () => $('#file-import').click());
+  $('#file-import')?.addEventListener('change', importJSON);
+  $('#btn-reset')?.addEventListener('click', () => {
+    openModal(`
+      <h3>🗑️ Xoá toàn bộ dữ liệu?</h3>
+      <p class="modal-sub">Điểm, lịch sử, avatar, quà sẽ bị xoá. Không thể hoàn tác.</p>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px">
+        <button class="btn btn-ghost" id="reset-cancel">Huỷ</button>
+        <button class="btn btn-danger" id="reset-confirm">Xoá hết</button>
+      </div>
+    `, modal => {
+      modal.querySelector('#reset-cancel').addEventListener('click', closeModal);
+      modal.querySelector('#reset-confirm').addEventListener('click', () => {
+        Storage.clearAll();
+        location.reload();
+      });
+    });
+  });
+}
+
+function bindRewardSettings(){
+  $('#add-reward')?.addEventListener('click',()=>{
+    const id='R'+Date.now().toString(36).toUpperCase()+Math.random().toString(36).slice(2,5).toUpperCase();
+    Services.rewards.push({id,name:'Phần quà mới',requiredPoints:10,icon:'🎁',enabled:true});
+    Services.save();
+    renderView('settings');
+    const input=document.querySelector(`[data-reward-name="${id}"]`);
+    input?.focus();
+    input?.select();
+    toast('Đã thêm phần quà. Hãy nhập tên và số sao cần đổi.','success');
+  });
+  $$('[data-reward-row]').forEach(row=>{
+    const id=row.dataset.rewardRow;
+    row.querySelectorAll('[data-reward-icon],[data-reward-name],[data-reward-points]').forEach(input=>{
+      input.addEventListener('change',()=>{
+        const reward=Services.rewards.find(item=>item.id===id);
+        if(!reward)return;
+        if(input.matches('[data-reward-icon]'))reward.icon=input.value.trim()||'🎁';
+        if(input.matches('[data-reward-name]'))reward.name=input.value.trim()||'Phần quà mới';
+        if(input.matches('[data-reward-points]')){
+          const points=Number(input.value);
+          if(!Number.isSafeInteger(points)||points<1){
+            input.value=String(reward.requiredPoints);
+            toast('Số sao đổi quà phải là số nguyên lớn hơn 0.','error');
+            return;
+          }
+          reward.requiredPoints=points;
+        }
+        Services.save();
+        renderView('settings');
+        toast('Đã lưu cấu hình phần quà.','success');
+      });
+    });
+    row.querySelector('[data-reward-enabled]')?.addEventListener('change',event=>{
+      const reward=Services.rewards.find(item=>item.id===id);
+      if(!reward)return;
+      reward.enabled=event.target.checked;
+      Services.save();
+      renderView('settings');
+      toast(reward.enabled?'Đã mở phần quà.':'Đã ẩn phần quà.','success');
+    });
+    row.querySelector('[data-remove-reward]')?.addEventListener('click',()=>{
+      const reward=Services.rewards.find(item=>item.id===id);
+      if(!reward)return;
+      openModal(`
+        <h3>🗑️ Xóa phần quà?</h3>
+        <p class="modal-sub">Bạn có chắc muốn xóa “${esc(reward.name)}” khỏi danh mục không?</p>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px">
+          <button class="btn btn-ghost" id="cancel-remove-reward">Hủy</button>
+          <button class="btn btn-danger" id="confirm-remove-reward">Xóa phần quà</button>
         </div>
-      </div>
-      <div class="form-row">
-        <label>Lý do <span class="required">*</span></label>
-        <div id="reasonList" class="reason-list"></div>
-        <input id="customReason" class="text-input hidden" maxlength="200" placeholder="Nhập lý do cụ thể...">
-      </div>
-      <div class="modal-actions">
-        <button class="btn btn-light" data-close="minusModal">Hủy</button>
-        <button id="saveMinusBtn" class="btn btn-danger" disabled>⚠️ Xác nhận trừ</button>
-      </div>
+      `,modal=>{
+        modal.querySelector('#cancel-remove-reward').addEventListener('click',closeModal);
+        modal.querySelector('#confirm-remove-reward').addEventListener('click',()=>{
+          Services.rewards=Services.rewards.filter(item=>item.id!==id);
+          Services.save();
+          closeModal();
+          renderView('settings');
+          toast('Đã xóa phần quà.','success');
+        });
+      });
+    });
+  });
+}
+
+/* ---------- 20. IMPORT / EXPORT ---------- */
+function exportJSON(){
+  const data = {
+    version: '1.0',
+    exportedAt: new Date().toISOString(),
+    students: Services.students,
+    schools: Services.schools,
+    classes: Services.classes,
+    scores: Services.scores,
+    history: Services.history,
+    avatars: Services.avatars,
+    rewards: Services.rewards,
+    redemptions: Services.redemptions,
+    settings: Services.settings,
+    favorites: Services.favorites,
+    recentStudents: Services.recentStudents
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  const date = new Date().toISOString().slice(0,10);
+  a.download = `class-star-backup-${date}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('Đã xuất file backup.', 'success');
+}
+function importJSON(e){
+  const file = e.target.files?.[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try{
+      const data = JSON.parse(ev.target.result);
+      if(!data.students || !Array.isArray(data.students)) throw new Error('File không hợp lệ');
+      Services.students = data.students;
+      Services.schools = data.schools || [];
+      Services.classes = data.classes || [];
+      Services.scores = data.scores || {};
+      Services.history = data.history || [];
+      Services.avatars = data.avatars || {};
+      Services.rewards = data.rewards || [...DEFAULT_REWARDS];
+      Services.redemptions = data.redemptions || [];
+      Services.settings = {...DEFAULT_SETTINGS, ...(data.settings || {})};
+      Services.favorites = data.favorites || [];
+      Services.recentStudents = data.recentStudents || [];
+      Storage.set('students_cache', {schools: Services.schools, classes: Services.classes, students: Services.students});
+      Services.save();
+      toast('Nhập dữ liệu thành công!', 'success');
+      renderAll();
+    } catch(err){
+      toast('File lỗi: ' + err.message, 'error', 4000);
+    }
+    e.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+/* ---------- 21. PRESENTATION ---------- */
+function openPresentation(studentId){
+  State.presStudentId = studentId;
+  $('#presentation-view').classList.remove('hidden');
+  renderPresentation();
+}
+function closePresentation(){
+  $('#presentation-view').classList.add('hidden');
+  State.presStudentId = null;
+}
+function renderPresentation(){
+  const s = Services.getStudent(State.presStudentId);
+  if(!s){ closePresentation(); return; }
+  const score = Services.getScore(s.id);
+  const level = levelFromScore(score, Services.settings.levels);
+  const avatarId = Services.avatars[s.id] || 'avatar_01';
+  const achs = Services.evaluateAchievements(s.id);
+  const list = Services.getStudentsOfClass(s.schoolId, s.classId);
+  const idx = list.findIndex(x => x.id === s.id);
+  $('#presentation-view').innerHTML = `
+    <button class="pres-close" id="pres-close">✕</button>
+    <img class="pres-avatar" src="${avatarDataURL(avatarId)}" alt="">
+    <h1 class="pres-name">${esc(s.name)}</h1>
+    <div class="pres-class">${esc(s.className)} • ${esc(s.schoolName)}</div>
+    <div class="pres-score">⭐ ${score}</div>
+    <div class="pres-level">${level.icon} LEVEL ${level.level} – ${esc(level.name)}</div>
+    <div class="pres-ach">
+      ${achs.map(id => {
+        const a = ACHIEVEMENT_DEFS.find(x => x.id === id);
+        return a ? `<span>${a.icon} ${esc(a.name)}</span>` : '';
+      }).join('')}
     </div>
-  </div>
-
-  <div id="historyModal" class="modal-backdrop hidden">
-    <div class="modal modal-large">
-      <button class="modal-close" data-close="historyModal">×</button>
-      <div class="modal-icon blue">📜</div>
-      <h3 id="historyTitle">Lịch sử học sinh</h3>
-      <div id="historyContent"></div>
+    <div class="pres-nav">
+      <button id="pres-prev">← Trước</button>
+      <button id="pres-next">Sau →</button>
     </div>
-  </div>
+  `;
+  $('#pres-close').addEventListener('click', closePresentation);
+  $('#pres-prev').addEventListener('click', () => {
+    const next = list[(idx - 1 + list.length) % list.length];
+    State.presStudentId = next.id;
+    renderPresentation();
+  });
+  $('#pres-next').addEventListener('click', () => {
+    const next = list[(idx + 1) % list.length];
+    State.presStudentId = next.id;
+    renderPresentation();
+  });
+}
 
-  <div id="rewardModal" class="modal-backdrop hidden">
-    <div class="modal">
-      <button class="modal-close" data-close="rewardModal">×</button>
-      <div class="modal-icon gold">🎁</div>
-      <h3>Đổi điểm nhận quà</h3>
-      <p id="rewardStudentName" class="modal-subtitle"></p>
-      <div class="reward-balance">⭐ Điểm có thể đổi: <strong id="rewardBalance">0</strong></div>
-      <div id="rewardList" class="reward-list"></div>
-      <div class="quantity-row">
-        <button id="qtyMinus" class="qty-btn">−</button>
-        <strong id="rewardQty">1</strong>
-        <button id="qtyPlus" class="qty-btn">+</button>
-      </div>
-      <p id="rewardCalculation" class="reward-calculation"></p>
-      <div class="modal-actions">
-        <button class="btn btn-light" data-close="rewardModal">Hủy</button>
-        <button id="confirmRewardBtn" class="btn btn-reward">🎁 Xác nhận đổi</button>
-      </div>
-    </div>
-  </div>
+/* ---------- 22. BOOT ---------- */
+async function boot(){
+  Services.load();
+  bindAuth();
+  bindNav();
+  const sheetUrl=Services.settings.googleSheet?.url;
+  if(sheetUrl){
+    try{await loadStudentsFromSheet(sheetUrl);}
+    catch(error){toast('Không tải được Google Sheet: '+error.message,'warn',6000);}
+  }
 
-  <div id="rewardConfigModal" class="modal-backdrop hidden">
-    <div class="modal modal-large">
-      <button class="modal-close" data-close="rewardConfigModal">×</button>
-      <div class="modal-icon gold">⚙️</div>
-      <h3>Cấu hình phần quà</h3>
-      <p class="modal-subtitle">Thay đổi tên, biểu tượng và số sao cần dùng. Cấu hình được lưu trên trình duyệt này.</p>
-      <div id="rewardConfigList"></div>
-      <button id="addRewardBtn" class="btn btn-secondary">＋ Thêm phần quà</button>
-      <div class="modal-actions">
-        <button class="btn btn-light" data-close="rewardConfigModal">Hủy</button>
-        <button id="saveRewardConfigBtn" class="btn btn-primary">💾 Lưu cấu hình</button>
-      </div>
-    </div>
-  </div>
+  // Nếu có session → vào luôn
+  const session = Storage.get('session', null);
+  if(session?.loggedIn) showApp();
+  else showLogin();
 
-  <footer>
-    <span>Quản lý điểm học sinh · Lưu cục bộ bằng LocalStorage</span>
-    <button id="configRewardBtn" class="text-btn">⚙️ Cấu hình quà</button>
-  </footer>
+  // ESC để đóng modal
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape'){ closeModal(); if(!$('#presentation-view').classList.contains('hidden')) closePresentation(); }
+  });
+}
 
-  <script src="script.js"></script>
+if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+else boot();
+
+})();
+</script>
 </body>
 </html>
